@@ -72,9 +72,13 @@ Route::get('/test/mid2','Test\TestController@mid2')->middleware('check.uid');
 //登录
 Route::get('/cart/index','Cart\IndexController@index')->middleware('check.login');
 //添加购物车
-Route::get('/cart/add/{goods_id}','Cart\IndexController@add')->middleware('check.login');
+//Route::get('/cart/add/{goods_id}','Cart\IndexController@add')->middleware('check.login');
+//添加购物车
+Route::post('/cart/add2','Cart\IndexController@add2')->middleware('check.login');
 //删除购物车
-Route::get('/cart/del/{goods_id}','Cart\IndexController@del')->middleware('check.login');
+//Route::get('/cart/del/{goods_id}','Cart\IndexController@del')->middleware('check.login');
+//删除购物车
+Route::any('/cart/del2/{goods_id}','Cart\IndexController@del2')->middleware('check.login');
 
 
 //商品详情页

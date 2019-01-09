@@ -3,9 +3,9 @@ $('#add_cart_btn').click(function(e){
     var buy_num=$('#goods_num').val();
     var goods_id=$('#goods_id').val();
     $.ajax({
-       header:{
-           'X-CSRF-TOKEN':$("meta[name='csrf-token']").attr('content')
-       },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         url : '/cart/add2',
         type : 'post',
         data :{goods_id:goods_id,buy_num:buy_num},
@@ -17,5 +17,5 @@ $('#add_cart_btn').click(function(e){
                alert(result.msg)
            }
         }
-    })
-})
+    });
+});
