@@ -1,6 +1,7 @@
 @extends('layout.bst')
 
 @section('content')
+
 <div class="container">
     <h1>{{$goods->goods_name}}</h1>
     <span> 价格：￥{{$goods->goods_price}}</span>

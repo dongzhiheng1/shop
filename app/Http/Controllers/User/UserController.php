@@ -134,4 +134,8 @@ class UserController extends Controller
 //        echo 'u_token'.$request->session()->get('u_token');echo '<br/>';
 //        echo '<pre>';print_r($_COOKIE);echo '</pre>';die;
     }
+    public  function quit(){
+	    echo "退出成功";
+	    header('refresh:1;url=/user/login');
+    }
 }

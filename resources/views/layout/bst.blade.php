@@ -24,11 +24,6 @@
                         <a class="navbar-brand" href="/">首页</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">分类1</a></li>
-                            <li><a href="#">分类2</a></li>
-                            <li><a href="#">分类3</a></li>
-                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心 <span class="caret"></span></a>
@@ -43,7 +38,7 @@
                                 </ul>
                             </li>
                             <li><a href="/user/login">登录</a></li>
-                            <li><a href="/user/logou">退出</a></li>
+                            <li><a href="/user/quit">退出</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
