@@ -71,4 +71,10 @@ class TestController extends Controller
         ];
         return view('test.child',$data);
     }
+    public function checkcookie(){
+        echo __METHOD__;
+    }
+    public function mid2(){
+        echo __METHOD__;
+    }
 }
