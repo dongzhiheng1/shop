@@ -94,4 +94,4 @@ Route::any('/order/add','Order\IndexController@add')->middleware('check.login');
 Route::any('/order/list','Order\IndexController@list')->middleware('check.login');
 
 //订单支付
-Route::any('/pay/order/{order_id}','Order\IndexController@order')->middleware('check.login');
+Route::any('/pay/order/{order_id}','Pay\IndexController@order')->middleware('check.login');

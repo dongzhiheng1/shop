@@ -31,7 +31,8 @@ class IndexController extends Controller
         $data=[
             'pay_time'=>time(),
             'pay_amount'=>rand(1111,9999),
-            'is_pay'=>1
+            'is_pay'=>1,
+            'order_status'=>2
         ];
         OrderModel::where(['order_id'=>$order_id])->update($data);
 

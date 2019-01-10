@@ -16,10 +16,17 @@
                 <tr>
                     <td style="width:200px">{{$v->order_number}}</td>
                     <td style="width:200px">￥{{$v->order_amount/100}}</td>
-                    <td style="width:200px">未支付</td>
+                    @if($v['is_pay']==1)
+                    <td style="width:200px"> 已支付 </td>
+                    <td style="width:200px">
+                        <a  class="btn btn-primary" id="add_cart_btn" >查看订单</a>
+                    </td>
+                    @else
+                        <td style="width:200px">未支付</td>
                     <td style="width:200px"><a  class="btn btn-primary" id="add_cart_btn" href="/pay/order/{{$v['order_id']}}">去支付</a>
                         <a  class="btn btn-primary" id="add_cart_btn" >取消订单</a>
                     </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
