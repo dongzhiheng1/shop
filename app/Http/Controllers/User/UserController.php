@@ -120,20 +120,20 @@ class UserController extends Controller
 	        die("用户不存在");
         }
     }
-    public function center(Request $request){
-	    if($_COOKIE['token']!=$request->session()->get('u_token')){
-	        die('非法请求');
-        }else{
-            if(empty($_COOKIE['uid'])){
-                header("refresh:1;url=/user/login");
-                echo "请先登录";exit;
-            }else{
-                echo "欢迎". $_COOKIE['uname'] ."登录";
-            }
-        }
-//        echo 'u_token'.$request->session()->get('u_token');echo '<br/>';
-//        echo '<pre>';print_r($_COOKIE);echo '</pre>';die;
-    }
+//    public function center(Request $request){
+//	    if($_COOKIE['token']!=$request->session()->get('u_token')){
+//	        die('非法请求');
+//        }else{
+//            if(empty($_COOKIE['uid'])){
+//                header("refresh:1;url=/user/login");
+//                echo "请先登录";exit;
+//            }else{
+//                echo "欢迎". $_COOKIE['uname'] ."登录";
+//            }
+//        }
+////        echo 'u_token'.$request->session()->get('u_token');echo '<br/>';
+////        echo '<pre>';print_r($_COOKIE);echo '</pre>';die;
+//    }
     public  function quit(){
 	    session()->forget('u_token');
         session()->forget('uid');
@@ -142,5 +142,11 @@ class UserController extends Controller
         cookie()->forget('uid');
 	    echo "退出成功";
 	    header('refresh:1;url=/user/login');
+    }
+    //个人中心
+    public function center()
+    {
+        $data = [];
+        return view('user.center',$data);
     }
 }

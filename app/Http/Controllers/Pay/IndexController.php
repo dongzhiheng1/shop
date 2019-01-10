@@ -37,7 +37,7 @@ class IndexController extends Controller
         OrderModel::where(['order_id'=>$order_id])->update($data);
 
         //增加修改积分
-        header('refresh:1;url=/user/center');
+        header('refresh:1;url=/order/list');
         echo "支付成功,正在跳转";
     }
 }

@@ -10,44 +10,45 @@
     <link rel="stylesheet" href="{{URL::asset("/bootstrap/css/bootstrap.css")}}">
 </head>
 <body>
-        <div class="container">
-            <!-- Static navbar -->
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">首页</a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心 <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/order/list">我的订单</a></li>
-                                    <li><a href="#">待收货</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/user/login">登录</a></li>
-                            <li><a href="/user/quit">退出</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div><!--/.container-fluid -->
-            </nav>
-            @yield('content')
+<div class="container">
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">首页</a>
         </div>
-    @section('footer')
-        <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
-        <script src="{{URL::asset('/bootstrap/js/bootstrap.js')}}"></script>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/goodslist">商品列表</a></li>
+                <li class="active"><a href="/cart/index">购物车列表</a></li>
+                <li><a href="#"></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hidden-sm" >
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        个人中心 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/order/list">我的订单</a></li>
+                        <li><a href="#">待收货</a></li>
+                        <li><a href="#">Jasper Report</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">MyMoney</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">MyCore</a></li>
+                    </ul>
+                </li>
+                <li><a href="/user/reg"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                <li><a href="/user/quit"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+@yield('content')
+</div>
+@section('footer')
+    <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{URL::asset('/bootstrap/js/bootstrap.js')}}"></script>
     @show
-</body>
-</html>
+    </body>
+    </html>
