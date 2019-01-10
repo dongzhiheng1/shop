@@ -4,7 +4,7 @@
 
 <div class="container">
     <h1>{{$goods->goods_name}}</h1>
-    <span> 价格：￥{{$goods->goods_price}}</span>
+    <span> 价格：￥{{$goods->goods_price/100}}</span>
     <form class="form-inline">
         <div class="form-group">
             <label class="sr-only" for="goods_num">Amount (in dollars)</label>

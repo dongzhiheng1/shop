@@ -88,4 +88,7 @@ Route::get('/goods/{goods_id}','goods\IndexController@index');
 Route::any('/user/quit','user\UserController@quit');
 
 //订单
-Route::any('/order/add','Order\IndexController@add');
+Route::any('/order/add','Order\IndexController@add')->middleware('check.login');
+
+//订单展示
+Route::any('/order/list','Order\IndexController@list')->middleware('check.login');

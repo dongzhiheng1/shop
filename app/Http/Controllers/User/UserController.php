@@ -85,7 +85,7 @@ class UserController extends Controller
 	        setcookie('uid',$uid,time()+86400,'/','myshop.com',false,true);
             setcookie('uname',$name,time()+86400,'/','myshop.com',false,true);
             $request->session()->put('u_token',$token);
-            $request->session()->put('uid',$res->u_id);
+            $request->session()->put('uid',$uid);
             header("refresh:2,url=/user/center");
             echo "注册成功，正在跳转";
         }else{
@@ -135,6 +135,11 @@ class UserController extends Controller
 //        echo '<pre>';print_r($_COOKIE);echo '</pre>';die;
     }
     public  function quit(){
+	    session()->forget('u_token');
+        session()->forget('uid');
+        session()->forget('uname');
+        cookie()->forget('token');
+        cookie()->forget('uid');
 	    echo "退出成功";
 	    header('refresh:1;url=/user/login');
     }

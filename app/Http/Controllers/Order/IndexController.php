@@ -42,9 +42,23 @@ class IndexController extends Controller
             echo "生成订单失败";
         }
         echo "下单成功,您的订单号为：".$order_number.'跳转支付';
-
         //清空购物车
         CartModel::where(['uid'=>session()->get('uid')])->delete();
 
+    }
+    //订单展示
+    public function list(){
+        $uid=session()->get('uid');
+        $where=[
+            'uid'=>$uid
+        ];
+        $list=OrderModel::where($where)->get();
+        if(empty($list)){
+            die("订单为空");
+        }
+        $data=[
+            'list'=>$list
+        ];
+        return view('order.index',$data);
     }
 }
