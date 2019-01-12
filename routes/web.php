@@ -82,13 +82,13 @@ Route::any('/cart/del2/{goods_id}','Cart\IndexController@del2')->middleware('che
 
 
 //商品详情页
-Route::get('/goods/{goods_id}','goods\IndexController@index');
+Route::get('/goods/{goods_id}','Goods\IndexController@index');
 
 //商品展示
-Route::any('/goodslist','goods\IndexController@list');
+Route::any('/goodslist','Goods\IndexController@list');
 
 //退出
-Route::any('/user/quit','user\UserController@quit');
+Route::any('/user/quit','User\UserController@quit');
 
 //订单
 Route::any('/order/add','Order\IndexController@add')->middleware('check.login');
@@ -98,3 +98,7 @@ Route::any('/order/list','Order\IndexController@list')->middleware('check.login'
 
 //订单支付
 Route::any('/pay/order/{order_id}','Pay\IndexController@order')->middleware('check.login');
+Route::any('/pay/alipay/test','Pay\AlipayController@test');
+Route::any('/pay/alipay/notify','Pay\AlipayController@notify');
+
+
