@@ -15,9 +15,9 @@ class AlipayController extends Controller
 
     public function __construct()
     {
-        $this->app_id=env('app_id');
-        $this->gate_way=env('gate_way');
-        $this->notify_url=env('notify_url');
+        $this->app_id=env('ALIPAY_APPID');
+        $this->gate_way=env('ALIPAY_GATEWAY');
+        $this->notify_url=env('ALIPAY_NOTIFY');
     }
 
     //请求订单服务 处理订单逻辑
