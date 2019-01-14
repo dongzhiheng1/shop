@@ -20,8 +20,8 @@ class AlipayController extends Controller
 
         $this->app_id=env('ALIPAY_APPID');
         $this->gate_way=env('ALIPAY_GATEWAY');
-        $this->notify_url=env('ALIPAY_NOTIFY_URL');
-        $this->return_url=env('ALIPAY_RETURN_URL');
+        $this->notify_url=env('ALIPAY_NOTIFY');
+        $this->return_url=env('ALIPAY_RETURN');
     }
 
     //请求订单服务 处理订单逻辑
@@ -40,7 +40,8 @@ class AlipayController extends Controller
             'sign_type'=>'RSA2',
             'timestamp'=>date('Y-m-d H:i:s'),
             'version'=>'1.0',
-            'notify_url'=>$this->notify_url,
+            'return_url'=>$this->return_url,//同步通知
+            'notify_url'=>$this->notify_url,//异步通知
             'biz_content'=>json_encode($bizcont),
         ];
         $sign=$this->rsaSign($data);
@@ -108,18 +109,20 @@ class AlipayController extends Controller
         return $data;
     }
     //支付宝同步通知回调
-    public function  aliReturn(){
+    public function aliReturn()
+    {
         echo '<pre>';print_r($_GET);echo '</pre>';
-        //验签 支付宝公钥
+        //验签 支付宝的公钥
         if(!$this->verify()){
-            echo "error";
+            echo 'error';
         }
+
         //处理订单逻辑
         $this->dealOrder($_GET);
     }
     public function aliNotify(){
         $data=json_encode($_POST);
-        $log_str='>>>'.date('Y-m-d H:i:s').$data."<<<\n\n";
+        $log_str= '>>>>'.date('Y-m-d H:i:s').$data."<<<<\n\n";
         //记录日志
         file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         $res=$this->verify();
