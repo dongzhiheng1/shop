@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class AlipayController extends Controller
 {
-    public $app_id ;
+    public $app_id =null;
     public $gate_way ;
     public $notify_url ;
     public $rsaPrivateKeyFilePath = './key/priv.key';
