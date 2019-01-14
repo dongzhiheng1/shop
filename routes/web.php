@@ -78,27 +78,27 @@ Route::post('/cart/add2','Cart\IndexController@add2')->middleware('check.login')
 //删除购物车
 //Route::get('/cart/del/{goods_id}','Cart\IndexController@del')->middleware('check.login');
 //删除购物车
-Route::any('/cart/del2/{goods_id}','Cart\IndexController@del2')->middleware('check.login');
+Route::get('/cart/del2/{goods_id}','Cart\IndexController@del2')->middleware('check.login');
 
 
 //商品详情页
 Route::get('/goods/{goods_id}','Goods\IndexController@index');
 
 //商品展示
-Route::any('/goodslist','Goods\IndexController@list');
+Route::get('/goodslist','Goods\IndexController@list');
 
 //退出
-Route::any('/user/quit','User\UserController@quit');
+Route::get('/user/quit','User\UserController@quit');
 
 //订单
-Route::any('/order/add','Order\IndexController@add')->middleware('check.login');
+Route::get('/order/add','Order\IndexController@add')->middleware('check.login');
 
 //订单展示
-Route::any('/order/list','Order\IndexController@list')->middleware('check.login');
+Route::get('/order/list','Order\IndexController@list')->middleware('check.login');
 
 //订单支付
-Route::any('/pay/order/{order_id}','Pay\IndexController@order')->middleware('check.login');
-Route::any('/pay/alipay/test','Pay\AlipayController@test');
-Route::any('/pay/alipay/notify','Pay\AlipayController@notify');
+Route::get('/pay/order/{order_id}','Pay\IndexController@order')->middleware('check.login');
+Route::get('/pay/alipay/test','Pay\AlipayController@test');
+Route::get('/pay/alipay/notify','Pay\AlipayController@notify');
 
 
