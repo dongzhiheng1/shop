@@ -8,10 +8,17 @@ use GuzzleHttp\Client;
 
 class AlipayController extends Controller
 {
-    public $app_id = '2016092200571916';
-    public $gate_way = 'https://openapi.alipaydev.com/gateway.do';
-    public $notify_url = 'http://dzh.wangby.cn/pay/alipay/notify';
+    public $app_id ;
+    public $gate_way ;
+    public $notify_url ;
     public $rsaPrivateKeyFilePath = './key/priv.key';
+
+    public function __construct()
+    {
+        $this->app_id=env('app_id');
+        $this->gate_way=env('gate_way');
+        $this->notify_url=env('notify_url');
+    }
 
     //请求订单服务 处理订单逻辑
     public function test(){
@@ -95,5 +102,8 @@ class AlipayController extends Controller
             }
         }
         return $data;
+    }
+    public function notify(){
+
     }
 }
