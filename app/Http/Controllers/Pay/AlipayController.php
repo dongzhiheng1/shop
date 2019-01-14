@@ -11,13 +11,17 @@ class AlipayController extends Controller
     public $app_id =null;
     public $gate_way ;
     public $notify_url ;
+    public $return_url ;
     public $rsaPrivateKeyFilePath = './key/priv.key';
+    public $aliPubkey = './key/ali_pub.key';
 
     public function __construct()
     {
+
         $this->app_id=env('ALIPAY_APPID');
         $this->gate_way=env('ALIPAY_GATEWAY');
-        $this->notify_url=env('ALIPAY_NOTIFY');
+        $this->notify_url=env('ALIPAY_NOTIFY_URL');
+        $this->return_url=env('ALIPAY_RETURN_URL');
     }
 
     //请求订单服务 处理订单逻辑
@@ -102,5 +106,42 @@ class AlipayController extends Controller
             }
         }
         return $data;
+    }
+    //支付宝同步通知回调
+    public function  aliReturn(){
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        //验签 支付宝公钥
+        if(!$this->verify()){
+            echo "error";
+        }
+        //处理订单逻辑
+        $this->dealOrder($_GET);
+    }
+    public function aliNotify(){
+        $data=json_encode($_POST);
+        $log_str='>>>'.date('Y-m-d H:i:s').$data."<<<\n\n";
+        //记录日志
+        file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        $res=$this->verify();
+        if($res===false){
+            echo "error";
+            //记录日志 验签失败
+        }
+
+        //处理订单逻辑
+        $this->dealOrder($_POST);
+        echo "success";
+    }
+    //验签
+    function verify(){
+        return true;
+    }
+
+    //处理订单逻辑 更新订单 支付状态 更新订单支付金额 支付时间
+    public function dealOrder($data){
+        //加积分
+
+        //减库存
+
     }
 }
