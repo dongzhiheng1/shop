@@ -133,10 +133,10 @@ class AlipayController extends Controller
         $res=$this->verify($_POST);
         if($res===false){
             //记录日志 验签失败
-            $log_str.="Sign Failed!<<<< \n\n";
+            $log_str .= " Sign Failed!<<<<< \n\n";
             file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         }else{
-            $log_str.="Sign OK<<<<\n\n";
+            $log_str .= " Sign OK!<<<<< \n\n";
             file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         }
         //验证订单状态
