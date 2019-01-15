@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Pay;
 use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
+use SebastianBergmann\ObjectReflector\ObjectReflectorTest;
+
 class AlipayController extends Controller
 {
     public $app_id =null;
@@ -25,13 +28,10 @@ class AlipayController extends Controller
     //请求订单服务 处理订单逻辑
     public function pay($order_id){
         $OrderInfo=OrderModel::where(['order_id'=>$order_id])->first()->toArray();
-        if($OrderInfo['is_pay']==1){
-            die('订单已支付,请勿重复支付');
-        }
         $bizcont=[
-            'subject'=>'goods'.$order_id,
-            'out_trade_no'=>$order_id,
-            'total_amount'=>$OrderInfo['order_amount']/100,
+            'subject'=>'shan'.mt_rand(1111,9999).str_random(6),
+            'out_trade_no'=>'order_id'.date('YmdHis').mt_rand(1111,2222),
+            'total_amount'=>0.01,
             'product_code'=>'QUICK_WAP_WAY',
         ];
         $data=[
@@ -124,15 +124,15 @@ class AlipayController extends Controller
         $log_str= '>>>>'.date('Y-m-d H:i:s').$data."<<<<\n\n";
         //记录日志
         file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
-//        $res=$this->verify($_POST);
-//        if($res===false){
-//            //记录日志 验签失败
-//            $log_str .= " Sign Failed!<<<<< \n\n";
-//            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
-//        }else{
-//            $log_str .= " Sign OK!<<<<< \n\n";
-//            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
-//        }
+        $res=$this->verify($_POST);
+        if($res===false){
+            //记录日志 验签失败
+            $log_str.="Sign Failed!<<<< \n\n";
+            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        }else{
+            $log_str.="Sign OK<<<<\n\n";
+            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        }
         //验证订单状态
         if($_POST['trade_status']=='TRADE_SUCCESS'){
             //更新订单状态
@@ -144,35 +144,35 @@ class AlipayController extends Controller
                 'plat_oid'=>$_POST['trade_no'], //支付宝订单号
                 'plat'=>1, //平台编号 1支付宝 2微信
             ];
-            OrderModel::where(['order_id'=>$oid])->update($info);
+            OrderModel::where(['oid'=>$oid])->update($info);
         }
         //处理订单逻辑
         $this->dealOrder($_POST);
         echo "success";
     }
-//    //验签
-//    function verify($params) {
-//        $sign = $params['sign'];
-//        $params['sign_type'] = null;
-//        $params['sign'] = null;
-//
-//        //读取公钥文件
-//        $pubKey = file_get_contents($this->aliPubKey);
-//        $pubKey = "-----BEGIN PUBLIC KEY-----\n" .
-//            wordwrap($pubKey, 64, "\n", true) .
-//            "\n-----END PUBLIC KEY-----";
-//        //转换为openssl格式密钥
-//
-//        $res = openssl_get_publickey($pubKey);
-//        ($res) or die('支付宝RSA公钥错误。请检查公钥文件格式是否正确');
-//
-//        //调用openssl内置方法验签，返回bool值
-//
-//        $result = (openssl_verify($this->getSignContent($params), base64_decode($sign), $res, OPENSSL_ALGO_SHA256)===1);
-//        openssl_free_key($res);
-//
-//        return $result;
-//    }
+    //验签
+    function verify($params){
+        $sign = $params['sign'];
+        $params['sign_type'] = null;
+        $params['sign'] = null;
+
+        //读取公钥文件
+        $pubKey = file_get_contents($this->aliPubKey);
+        $pubKey = "-----BEGIN PUBLIC KEY-----\n" .
+            wordwrap($pubKey, 64, "\n", true) .
+            "\n-----END PUBLIC KEY-----";
+        //转换为openssl格式密钥
+
+        $res = openssl_get_publickey($pubKey);
+        ($res) or die('支付宝RSA公钥错误。请检查公钥文件格式是否正确');
+
+        //调用openssl内置方法验签，返回bool值
+
+        $result = (openssl_verify($this->getSignContent($params), base64_decode($sign), $res, OPENSSL_ALGO_SHA256)===1);
+        openssl_free_key($res);
+
+        return $result;
+    }
 
     //处理订单逻辑 更新订单 支付状态 更新订单支付金额 支付时间
     public function dealOrder($data){
