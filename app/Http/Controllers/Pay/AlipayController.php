@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Pay;
 use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
-use SebastianBergmann\ObjectReflector\ObjectReflectorTest;
-
 class AlipayController extends Controller
 {
     public $app_id =null;
