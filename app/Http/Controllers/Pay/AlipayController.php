@@ -26,7 +26,7 @@ class AlipayController extends Controller
     }
 
     //请求订单服务 处理订单逻辑
-    public function test($order_id){
+    public function pay($order_id){
         $OrderInfo=OrderModel::where(['order_id'=>$order_id])->first()->toArray();
         $bizcont=[
             'subject'=>'goods'.$order_id,
