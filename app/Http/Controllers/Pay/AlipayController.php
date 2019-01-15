@@ -157,7 +157,7 @@ class AlipayController extends Controller
         echo "success";
     }
     //验签
-    function verify($params){
+    function verify($params) {
         $sign = $params['sign'];
         $params['sign_type'] = null;
         $params['sign'] = null;
