@@ -6,6 +6,7 @@ use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use SebastianBergmann\ObjectReflector\ObjectReflectorTest;
 
 class AlipayController extends Controller
 {
@@ -25,11 +26,12 @@ class AlipayController extends Controller
     }
 
     //请求订单服务 处理订单逻辑
-    public function test(){
+    public function test($order_id){
+        $OrderInfo=OrderModel::where(['order_id'=>$order_id])->first()->toArray();
         $bizcont=[
-            'subject'=>'ancsd'.mt_rand(1111,9999).str_random(6),
-            'out_trade_no'=>'order_id'.date('YmdHis').mt_rand(1111,2222),
-            'total_amount'=>0.01,
+            'subject'=>'goods'.$order_id,
+            'out_trade_no'=>$order_id,
+            'total_amount'=>$OrderInfo['order_amount'],
             'product_code'=>'QUICK_WAP_WAY',
         ];
         $data=[

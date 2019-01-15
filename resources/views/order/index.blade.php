@@ -23,7 +23,7 @@
                     </td>
                     @else
                         <td style="width:200px">未支付</td>
-                    <td style="width:200px"><a  class="btn btn-primary" id="add_cart_btn" href="/pay/alipay/test">去支付</a>
+                    <td style="width:200px"><a  class="btn btn-primary" id="add_cart_btn" href="/pay/alipay/pay/{{$v['order_id']}}">去支付</a>
                         <a  class="btn btn-primary" id="add_cart_btn" >取消订单</a>
                     </td>
                     @endif
