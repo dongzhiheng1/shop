@@ -31,7 +31,7 @@ class AlipayController extends Controller
         $bizcont=[
             'subject'=>'goods'.$order_id,
             'out_trade_no'=>$order_id,
-            'total_amount'=>$OrderInfo['order_amount'],
+            'total_amount'=>$OrderInfo['order_amount']/100,
             'product_code'=>'QUICK_WAP_WAY',
         ];
         $data=[
