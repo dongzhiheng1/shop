@@ -52,8 +52,8 @@ class ExampleController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header('商品管理')
+            ->description('编辑')
             ->body($this->form()->edit($id));
     }
 
