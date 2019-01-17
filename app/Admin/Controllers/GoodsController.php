@@ -123,7 +123,6 @@ class GoodsController extends Controller
         $form->text('goods_name', 'Goods name');
         $form->number('goods_num', 'Goods num');
         $form->number('goods_price', 'Goods price');
-        $form->ckeditor('content');
 
         return $form;
     }
