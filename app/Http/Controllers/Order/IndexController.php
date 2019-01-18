@@ -47,6 +47,7 @@ class IndexController extends Controller
             echo "生成订单失败";
         }
         echo "下单成功,您的订单号为：".$order_number.'跳转支付';
+        header('refresh:1;url=/order/list');
         //清空购物车
         CartModel::where(['uid'=>Auth::id()])->delete();
 
