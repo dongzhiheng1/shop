@@ -19,7 +19,6 @@ class AlipayController extends Controller
         $this->gate_way=env('ALIPAY_GATEWAY');
         $this->notify_url=env("ALIPAY_NOTIFY");
         $this->return_url=env("ALIPAY_RETURN");
-        $this->middleware('auth');
     }
 
     /*public function test()
@@ -73,7 +72,7 @@ class AlipayController extends Controller
         $bizcont = [
             'subject'           => 'lening_shop: '.$order_id,
             'out_trade_no'      => $order_id,
-            'total_amount'      => $orderInfo['order_amount'] / 100,
+            'total_amount'      => $orderInfo['order_amount'],
             'product_code'      => 'QUICK_WAP_WAY',
 
         ];
@@ -232,6 +231,5 @@ class AlipayController extends Controller
     public  function  dealOrder($data){
 
     }
-
 
 }
