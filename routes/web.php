@@ -54,31 +54,31 @@ Route::any('/test/abc','Test\TestController@abc');
 Route::get('/view/test1','Test\TestController@viewTest1');
 Route::get('/view/test2','Test\TestController@viewTest2');
 
-//注册
-Route::get('/user/reg','User\UserController@register');
-Route::post('/user/reg','User\UserController@doRegister');
-
-//登录
-Route::get('/user/login','User\UserController@login');
-Route::post('/user/login','User\UserController@doLogin');
-Route::get('/user/center','User\UserController@center');
+////注册
+////Route::get('/user/reg','User\UserController@register');
+////Route::post('/user/reg','User\UserController@doRegister');
+////
+//////登录
+////Route::get('/user/login','User\UserController@login');
+////Route::post('/user/login','User\UserController@doLogin');
+////Route::get('/user/center','User\UserController@center');
 
 
 //中间件
-Route::get('/test/checkcookie','Test\TestController@checkcookie')->middleware('check.cookie');
-Route::get('/test/mid2','Test\TestController@mid2')->middleware('check.uid');
+Route::get('/test/checkcookie','Test\TestController@checkcookie');
+Route::get('/test/mid2','Test\TestController@mid2');
 
 //购物车
 //登录
-Route::get('/cart/index','Cart\IndexController@index')->middleware('check.login');
+Route::get('/cart/index','Cart\IndexController@index');
 //添加购物车
 //Route::get('/cart/add/{goods_id}','Cart\IndexController@add')->middleware('check.login');
 //添加购物车
-Route::post('/cart/add2','Cart\IndexController@add2')->middleware('check.login');
+Route::post('/cart/add2','Cart\IndexController@add2');
 //删除购物车
 //Route::get('/cart/del/{goods_id}','Cart\IndexController@del')->middleware('check.login');
 //删除购物车
-Route::get('/cart/del2/{goods_id}','Cart\IndexController@del2')->middleware('check.login');
+Route::get('/cart/del2/{goods_id}','Cart\IndexController@del2');
 
 
 //商品详情页
@@ -91,10 +91,10 @@ Route::get('/goodslist','Goods\IndexController@list');
 Route::get('/user/quit','User\UserController@quit');
 
 //订单
-Route::get('/order/add','Order\IndexController@add')->middleware('check.login');
+Route::get('/order/add','Order\IndexController@add');
 
 //订单展示
-Route::get('/order/list','Order\IndexController@list')->middleware('check.login');
+Route::get('/order/list','Order\IndexController@list');
 
 //订单支付
 //Route::get('/pay/order/{order_id}','Pay\IndexController@order')->middleware('check.login');

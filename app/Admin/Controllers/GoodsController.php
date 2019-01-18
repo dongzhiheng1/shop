@@ -20,6 +20,11 @@ class GoodsController extends Controller
      * @param Content $content
      * @return Content
      */
+
+    public function __construct()
+    {
+        $this->middleware(auth);
+    }
     public function index(Content $content)
     {
         return $content

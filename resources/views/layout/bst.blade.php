@@ -37,9 +37,6 @@
                         <li><a href="#">MyCore</a></li>
                     </ul>
                 </li>
-                <li><a href="/user/reg"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-                <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                <li><a href="/user/quit"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
             </ul>
         </div>
     </div>

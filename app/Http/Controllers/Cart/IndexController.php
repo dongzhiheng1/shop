@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Model\CartModel;
 use App\Model\GoodsModel;
 use DB;
+use Illuminate\Support\Facades\Auth;
+
 class IndexController extends Controller
 {
     public $uid;
     public $cart_goods;
     public function  __construct(){
         $this->middleware(function($request,$next){
-            $this->uid=session()->get('uid');
+            $this->uid=Auth::id();
             return $next($request);
         });
     }
@@ -27,7 +29,7 @@ class IndexController extends Controller
 //            }
 //
 //        }
-        $uid=session()->get('uid');
+        $uid=Auth::id();
         $cart_goods=CartModel::where(['uid'=>$uid])->get()->toArray();
         if(empty($cart_goods)){
             die("购物车为空");
