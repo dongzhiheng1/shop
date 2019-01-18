@@ -103,3 +103,7 @@ Route::get('/pay/alipay/return','Pay\AlipayController@aliReturn');//支付宝同
 Route::post('/pay/alipay/notify','Pay\AlipayController@aliNotify');//支付宝异步
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
