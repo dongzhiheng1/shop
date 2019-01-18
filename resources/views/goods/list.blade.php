@@ -19,9 +19,11 @@
                     <td style="width:200px">{{$v['goods_num']}}</td>
                     <td style="width:200px"><a href="/goods/{{$v['goods_id']}}">查看商品详情</a></td>
                 </tr>
+
             @endforeach
             </tbody>
         </table>
+        {{$list->links()}}
     </div>
 @endsection
 @section('footer')

@@ -20,10 +20,10 @@ class IndexController extends Controller
         return view('goods.index',$data);
     }
     public function list(){
-        $list=GoodsModel::get()->toArray();
+        $list=GoodsModel::paginate(2);
 //        var_dump($list);die;
         $data=[
-            'list'=>$list
+            'list'=>$list,
         ];
         return view('goods.list',$data);
     }
