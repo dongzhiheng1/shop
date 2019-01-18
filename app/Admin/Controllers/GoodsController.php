@@ -2,19 +2,18 @@
 
 namespace App\Admin\Controllers;
 
+use App\Model\GoodsModel;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use App\model\GoodsModel;
-
 
 class GoodsController extends Controller
 {
-
     use HasResourceActions;
+
     /**
      * Index interface.
      *
@@ -24,39 +23,39 @@ class GoodsController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('商品管理')
-            ->description('商品列表')
+            ->header('Index')
+            ->description('description')
             ->body($this->grid());
     }
-    protected function grid()
+
+    /**
+     * Show interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function show($id, Content $content)
     {
-        $grid = new Grid(new GoodsModel());
-        $grid->model()->orderBy("goods_id","desc");
-        $grid->goods_id('商品ID');
-        $grid->goods_name('商品名称');
-        $grid->goods_price("商品价格");
-        $grid->goods_num("库存");
-        $grid->created_at('添加时间');
-        return $grid;
+        return $content
+            ->header('Detail')
+            ->description('description')
+            ->body($this->detail($id));
     }
-
-
-
 
     /**
      * Edit interface.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @param Content $content
      * @return Content
      */
     public function edit($id, Content $content)
     {
         return $content
-            ->header('商品管理')
-            ->description('编辑')
+            ->header('Edit')
+            ->description('description')
             ->body($this->form()->edit($id));
-
     }
 
     /**
@@ -67,30 +66,53 @@ class GoodsController extends Controller
      */
     public function create(Content $content)
     {
-
-
         return $content
-            ->header('商品管理')
-            ->description('添加')
+            ->header('Create')
+            ->description('description')
             ->body($this->form());
+    }
 
-    }
-    public function show($id, Content $content)
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
     {
-        return $content
-            ->header('商品列表')
-            ->description('商品详情')
-            ->body($this->detail($id));
+        $grid = new Grid(new GoodsModel);
+
+        $grid->goods_id('Goods id');
+        $grid->goods_name('Goods name');
+        $grid->goods_num('Goods num');
+        $grid->goods_price('Goods price');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
+        $grid->content('Content');
+
+        return $grid;
     }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     * @return Show
+     */
     protected function detail($id)
     {
         $show = new Show(GoodsModel::findOrFail($id));
 
-        $show->goods_id("商品ID");
-        $show->goods_name("商品名称");
-        $show->goods_price("商品价格");
+        $show->goods_id('Goods id');
+        $show->goods_name('Goods name');
+        $show->goods_num('Goods num');
+        $show->goods_price('Goods price');
+        $show->created_at('Created at');
+        $show->updated_at('Updated at');
+        $show->content('Content');
+
         return $show;
     }
+
     /**
      * Make a form builder.
      *
@@ -98,12 +120,13 @@ class GoodsController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new GoodsModel());
+        $form = new Form(new GoodsModel);
 
-        $form->display('goods_id', '商品ID');
-        $form->text('goods_name', '商品名称');
-        $form->number('goods_num', '库存');
-        $form->currency("goods_price","价格")->symbol("￥");
+        $form->text('goods_name', 'Goods name');
+        $form->number('goods_num', 'Goods num');
+        $form->number('goods_price', 'Goods price');
+        $form->textarea('content', 'Content');
+
         return $form;
     }
 }
