@@ -79,7 +79,7 @@ class GoodsController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new GoodsModel);
+        $grid = new Grid(new GoodsModel());
 
         $grid->goods_id('Goods id');
         $grid->goods_name('Goods name');
@@ -118,7 +118,7 @@ class GoodsController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new GoodsModel);
+        $form = new Form(new GoodsModel());
 
         $form->text('goods_name', 'Goods name');
         $form->number('goods_num', 'Goods num');
