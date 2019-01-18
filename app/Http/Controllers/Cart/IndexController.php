@@ -161,6 +161,4 @@ class IndexController extends Controller
                     header("refresh:1;url=/cart/index");
                 }
         }
-
-
 }
