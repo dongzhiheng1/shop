@@ -30,7 +30,7 @@ class GoodsController extends Controller
     }
     protected function grid()
     {
-        $grid = new Grid(new GoodsModel);
+        $grid = new Grid(new GoodsModel());
         $grid->model()->orderBy("goods_id","desc");
         $grid->goods_id('商品ID');
         $grid->goods_name('商品名称');
@@ -98,7 +98,7 @@ class GoodsController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new GoodsModel);
+        $form = new Form(new GoodsModel());
 
         $form->display('goods_id', '商品ID');
         $form->text('goods_name', '商品名称');
