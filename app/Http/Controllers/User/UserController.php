@@ -110,7 +110,7 @@ class UserController extends Controller
                 setcookie('uname',$u_name,time()+86400,'/','myshop.com',false,true);
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->u_id);
-                header("refresh:2;url=/user/center");
+                header("refresh:2;url=/user/changepwd");
                 echo "登录成功";
             }else{
                 echo("账号或密码错误");
@@ -143,10 +143,43 @@ class UserController extends Controller
 	    echo "退出成功";
 	    header('refresh:1;url=/user/login');
     }
-    //个人中心
-    public function center()
+    //修改密码
+    public function changepwd()
     {
-        $data = [];
-        return view('user.center',$data);
+        return view('user/changepwd');
     }
+    public function changepwddo(Request $request)
+    {
+        $n_pwd=$request->input('new_pwd1');
+        $n_pwd2=$request->input('new_pwd2');
+        if($n_pwd2!=$n_pwd){
+            die('确认密码与修改密码不一致');
+        }
+        $u_pwd=$request->input('u_pwd');
+        $id=session('uid');
+        $where=[
+            'u_id'=>$id
+        ];
+        $res=UserModel::where($where)->first();
+        $pwd3=$res->pwd;
+        if($res){
+            if(password_verify($u_pwd,$pwd3)){
+                $new_pwd=password_hash($n_pwd,PASSWORD_BCRYPT);
+                $updwhere=[
+                    'u_id'=>$id
+                ];
+                $data=[
+                    'pwd'=>$new_pwd
+                ];
+                $res2=UserModel::where($updwhere)->update($data);
+                if($res2){
+                    echo "修改成功";
+                    header('refresh:1;url=/user/login');
+                }
+            }else{
+                echo '修改失败';
+            }
+        }
+    }
+
 }

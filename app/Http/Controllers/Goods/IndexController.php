@@ -27,4 +27,20 @@ class IndexController extends Controller
         ];
         return view('goods.list',$data);
     }
+    public function upload(){
+        return view('goods.upload');
+    }
+    public function uploadPDF(Request $request){
+        $pdf=$request->file('pdf');
+        $type=$pdf->extension();
+        if($type!='pdf'){
+            die('上传文件类型错误');
+        }
+        $res=$pdf->storeAs(date('Ymd'),str_random(5).'.pdf');
+        if($res){
+            echo "上传成功";
+        }
+
+    }
+
 }

@@ -54,14 +54,15 @@ Route::any('/test/abc','Test\TestController@abc');
 Route::get('/view/test1','Test\TestController@viewTest1');
 Route::get('/view/test2','Test\TestController@viewTest2');
 
-////注册
-////Route::get('/user/reg','User\UserController@register');
-////Route::post('/user/reg','User\UserController@doRegister');
-////
+//注册
+Route::get('/user/reg','User\UserController@register');
+Route::post('/user/reg','User\UserController@doRegister');
+
 //////登录
-////Route::get('/user/login','User\UserController@login');
-////Route::post('/user/login','User\UserController@doLogin');
-////Route::get('/user/center','User\UserController@center');
+Route::get('/user/login','User\UserController@login');
+Route::post('/user/login','User\UserController@doLogin');
+Route::get('/user/changepwd','User\UserController@changepwd');
+Route::post('/user/changepwddo','User\UserController@changepwddo');
 
 
 //中间件
@@ -102,8 +103,11 @@ Route::get('/pay/alipay/pay/{order_id}','Pay\AlipayController@pay');
 Route::get('/pay/alipay/return','Pay\AlipayController@aliReturn');//支付宝同步
 Route::post('/pay/alipay/notify','Pay\AlipayController@aliNotify');//支付宝异步
 
-
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//文件上传
+Route::get('/upload','Goods\IndexController@upload');
+Route::post('/goods/uploadpdf','Goods\IndexController@uploadPDF');
+
