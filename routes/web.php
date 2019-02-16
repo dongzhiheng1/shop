@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', function () {
+   phpinfo();
+});
 
 //Route::get('/', function () {
 //    echo date("Y-m-d H:i:s");
@@ -110,4 +113,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 //文件上传
 Route::get('/upload','Goods\IndexController@upload');
 Route::post('/goods/uploadpdf','Goods\IndexController@uploadPDF');
+
+
+Route::get('/movie/show','Movie\IndexController@index');
+Route::get('/movie/buy/{pos}/{status}','Movie\IndexController@buy');
+
+
+//微信
+Route::get('/weixin/valid','Weixin\WeixinController@validToken');
+Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
