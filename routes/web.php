@@ -126,3 +126,8 @@ Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
 Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');        //接收微信服务器事件推送
 Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
+
+
+//微信公众号菜单
+Route::get('/weixin/menu','Weixin\WeixinController@wxMenu');
+

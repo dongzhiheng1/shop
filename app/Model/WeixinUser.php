@@ -9,5 +9,5 @@ class WeixinUser extends Model
     //
     public $table = 'p_wx_users';
     public $timestamps = false;
-    
+
 }
