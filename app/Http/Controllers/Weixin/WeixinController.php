@@ -173,7 +173,7 @@ class WeixinController extends Controller
         $file_name = substr(rtrim($file_info[0],'"'),-20);
         $wx_image_path='wx/images/'.$file_name;
         //保存图片
-        $r=Storage::disk('local')->put($wx_image_path,$response->getBody());
+        $r= Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){
             //保存成功
             echo "保存成功";
