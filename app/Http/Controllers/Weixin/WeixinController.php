@@ -39,53 +39,55 @@ class WeixinController extends Controller
     public function wxEvent()
     {
         $data = file_get_contents("php://input");
-
+        $xml = simplexml_load_string($data);
 
         //解析XML
-        $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
-
-        $event = $xml->Event;                       //事件类型
+             //将 xml字符串 转换成对象
+        $event = $xml->Event;
+        $openid = $xml->FromUserName;                    //事件类型
         //var_dump($xml);echo '<hr>';
 
-        if($event=='subscribe'){
-            $openid = $xml->FromUserName;               //用户openid
+        if ($event == 'subscribe') {
+                           //用户openid
             $sub_time = $xml->CreateTime;               //扫码关注时间
 
 
-            echo 'openid: '.$openid;echo '</br>';
+            echo 'openid: ' . $openid;
+            echo '</br>';
             echo '$sub_time: ' . $sub_time;
 
             //获取用户信息
             $user_info = $this->getUserInfo($openid);
-            echo '<pre>';print_r($user_info);echo '</pre>';
+            echo '<pre>';
+            print_r($user_info);
+            echo '</pre>';
 
             //保存用户信息
-            $u = WeixinUser::where(['openid'=>$openid])->first();
+            $u = WeixinUser::where(['openid' => $openid])->first();
             //var_dump($u);die;
-            if($u){       //用户不存在
+            if ($u) {       //用户不存在
                 echo '用户已存在';
-            }else{
+            } else {
                 $user_data = [
-                    'openid'            => $openid,
-                    'add_time'          => time(),
-                    'nickname'          => $user_info['nickname'],
-                    'sex'               => $user_info['sex'],
-                    'headimgurl'        => $user_info['headimgurl'],
-                    'subscribe_time'    => $sub_time,
+                    'openid' => $openid,
+                    'add_time' => time(),
+                    'nickname' => $user_info['nickname'],
+                    'sex' => $user_info['sex'],
+                    'headimgurl' => $user_info['headimgurl'],
+                    'subscribe_time' => $sub_time,
                 ];
 
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-        }
-
+        }elseif($event == 'CLICK'){   //click菜单
+                if ($xml->Eventkey=='kefu01') {
+                    $this->kefu01($openid, $xml->ToUserName);
+                }
+            }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
-
-
-
-
     /**
      * 接收事件推送
      */
@@ -98,6 +100,14 @@ class WeixinController extends Controller
         $data = file_get_contents("php://input");
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
+    //客服处理
+    public function kefu01($openid,$from)
+    {
+        echo 1;
+        // 文本消息
+        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        echo $xml_response;
     }
 
     /**
@@ -146,14 +156,36 @@ class WeixinController extends Controller
             ['base_uri'=>$url]);
         $data=[
             'button'=>[
-               [ 'type'=>'view',
-                'name'=>'baidu',
-                'url'=>'http://www.baidu.com'
+               [
+                'name'=>'4399',
+                   'sub_button'=>[
+                [
+               "type"=>"view",
+               "name"=>"小游戏",
+               "url"=>"http://www.4399.com"
             ]
-         ]
+            ]
+            ],
+                [
+                    'name'=>'百度',
+                    'sub_button'=>[
+                        [
+                            "type"=>"view",
+                            "name"=>"首页",
+                            "url"=>"http://www.baidu.com"
+                        ]
+                    ]
+                ],
+                [
+                    'type'=>'click',
+                    'name'=>'客服1',
+                    'key'=>'kefu01',
+                ]
+            ]
+
         ];
         $r=$client->request('POST',$url,[
-            'body'=>json_encode($data)
+            'body'=>json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);
         // 3 解析微信接口返回信息
         $resopnse_array=json_decode($r->getBody(),true);
