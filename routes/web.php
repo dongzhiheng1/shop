@@ -130,4 +130,6 @@ Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
 //微信公众号菜单
 Route::get('/weixin/menu','Weixin\WeixinController@wxMenu');
+//群发
+Route::get('/weixin/sendAll','Weixin\WeixinController@sendAll');
 
