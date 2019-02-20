@@ -282,6 +282,30 @@ class WeixinController extends Controller
             echo "菜单创建失败,请重新测试";echo'<br>';
             echo $resopnse_array['errmsg'];
         }
-
+    }
+    public function sendAll(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$this->getWXAccessToken();
+        //echo $url;exit;
+        //openid
+        $wxUserInfo = WxUserModel::get()->toArray();
+        //var_dump($wxUserInfo);
+        foreach($wxUserInfo as $v){
+            $openid[]=$v['openid'];
+        }
+        //print_r($openid);
+        //文本群发消息
+        $data = [
+            "touser"    =>  $openid,
+            "msgtype"   =>  "text",
+            "text"      =>  [
+                "content"   =>  "hello 你好,当前时间是:".date('Y-m-d H:i:s')
+            ]
+        ];
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+        ]);
+        $respone_arr = json_decode($r->getBody(),true);
+        echo '<pre>';print_r($respone_arr);echo '</pre>';
     }
 }
