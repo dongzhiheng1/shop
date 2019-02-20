@@ -287,7 +287,7 @@ class WeixinController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$this->getWXAccessToken();
         //echo $url;exit;
         //openid
-        $wxUserInfo = WxUserModel::get()->toArray();
+        $wxUserInfo = WeixinUser::get()->toArray();
         //var_dump($wxUserInfo);
         foreach($wxUserInfo as $v){
             $openid[]=$v['openid'];
