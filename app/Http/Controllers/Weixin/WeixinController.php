@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Weixin;
 
 use App\Model\WeixinUser;
+use App\Model\WeixinMedia;
 use foo\bar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
