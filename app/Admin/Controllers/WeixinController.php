@@ -95,7 +95,6 @@ class WeixinController extends Controller
         $grid->subscribe_time('Subscribe time')->display(function($time){
             return date('Y-m-d H:i:s',$time);
         });
-
         return $grid;
     }
 
@@ -117,7 +116,6 @@ class WeixinController extends Controller
         $show->sex('Sex');
         $show->headimgurl('Headimgurl');
         $show->subscribe_time('Subscribe time');
-
         return $show;
     }
 
