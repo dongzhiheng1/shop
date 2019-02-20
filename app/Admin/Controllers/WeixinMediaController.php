@@ -90,7 +90,9 @@ class WeixinMediaController extends Controller
         $grid->media_id('Media id');
         $grid->format('Format');
         $grid->msg_id('Msg id');
-        $grid->local_file_name('Local file name');
+        $grid->local_file_name('Local file name')->display(function($image){
+            return "<img src='https://dzh.wangby.cn/wx/image/".$image."'>";
+        });;
         $grid->local_file_path('Local file path');
 
         return $grid;
