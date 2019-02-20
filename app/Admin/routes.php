@@ -13,5 +13,5 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('/goods',GoodsController::class);
     $router->resource('/wx/wxusers',WeixinController::class);
-
+    $router->resource('/wx/wxmedia',WeixinMediaController::class);
 });
