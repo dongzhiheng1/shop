@@ -287,7 +287,7 @@ class WeixinController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$this->getWXAccessToken();
         //echo $url;exit;
         //openid
-        $wxUserInfo = WeixinUser::get()->toArray();
+        $wxUserInfo =WeixinUser::get()->toArray();
         //var_dump($wxUserInfo);
         foreach($wxUserInfo as $v){
             $openid[]=$v['openid'];
@@ -298,7 +298,7 @@ class WeixinController extends Controller
             "touser"    =>  $openid,
             "msgtype"   =>  "text",
             "text"      =>  [
-                "content"   =>  "hello 你好,当前时间是:".date('Y-m-d H:i:s')
+                "content"   =>  "你好，我是机器人小知,小知为您服务"
             ]
         ];
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
