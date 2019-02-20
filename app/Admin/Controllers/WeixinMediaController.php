@@ -83,7 +83,9 @@ class WeixinMediaController extends Controller
 
         $grid->id('Id');
         $grid->openid('Openid');
-        $grid->add_time('Add time');
+        $grid->add_time('Add time')->display(function($time){
+            return date('Y-m-d H:i:s',$time);
+        });
         $grid->msg_type('Msg type');
         $grid->media_id('Media id');
         $grid->format('Format');
