@@ -135,7 +135,6 @@ class WeixinController extends Controller
         $form->text('sex', 'Sex');
         $form->text('headimgurl', 'Headimgurl');
         $form->number('subscribe_time', 'Subscribe time');
-
         return $form;
     }
 }
