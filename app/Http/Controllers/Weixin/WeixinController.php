@@ -199,6 +199,7 @@ class WeixinController extends Controller
         }else{
             echo "保存失败";
         }
+        return $file_name;
 
     }
     public function dlVoice($media_id)
