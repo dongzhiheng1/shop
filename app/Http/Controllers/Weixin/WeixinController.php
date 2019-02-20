@@ -64,6 +64,8 @@ class WeixinController extends Controller
              }
          }elseif($xml->MsgType=='voice') {        //处理语音信息
              $this->dlVoice($xml->MediaId);
+             $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+             echo $xml_response;
          }
      }
         if ($event == 'subscribe') {
