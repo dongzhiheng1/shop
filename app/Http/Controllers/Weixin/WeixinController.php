@@ -64,7 +64,7 @@ class WeixinController extends Controller
              }
 
          }
-         exit();
+         //exit();
      }
         if ($event == 'subscribe') {
                            //用户openid
