@@ -133,3 +133,12 @@ Route::get('/weixin/menu','Weixin\WeixinController@wxMenu');
 //群发
 Route::get('/weixin/sendAll','Weixin\WeixinController@sendAll');
 
+
+//素材
+Route::get('/weixin/fodder','Weixin\WeixinController@fodder');
+
+
+//测试
+Route::get('/weixin/show','Weixin\WeixinController@formShow');
+Route::post('/weixin/test','Weixin\WeixinController@formTest');
+
