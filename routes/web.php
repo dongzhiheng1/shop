@@ -130,8 +130,8 @@ Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
 //微信公众号菜单
 Route::get('/weixin/menu','Weixin\WeixinController@wxMenu');
-//群发
-Route::get('/weixin/sendAll','Weixin\WeixinController@sendAll');
+//单发
+Route::post('/weixin/send','Weixin\WeixinController@sendAll');
 
 
 //素材
@@ -142,3 +142,10 @@ Route::get('/weixin/fodder','Weixin\WeixinController@fodder');
 Route::get('/weixin/show','Weixin\WeixinController@formShow');
 Route::post('/weixin/test','Weixin\WeixinController@formTest');
 
+//单发
+Route::get('/weixin/one','Weixin\WeixinController@one');
+
+
+//微信聊天
+Route::get('/weixi/chat','Weixin\WeixinController@chatShow');
+Route::get('/weixin/get_msg','Weixin\WeixinController@getChatMsg');

@@ -162,11 +162,11 @@ class WeixinMaterialController extends Controller
 
 
         //上传至微信永久素材
-        $this->upMaterialTest($save_file_path);
+        $this->upMaterialTest($save_file_path,$new_file_name);
 
     }
     //永久素材保存
-    public function upMaterialTest($file_path){
+    public function upMaterialTest($file_path,$new_file_name){
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
         $client=new GuzzleHttp\Client();
         $response=$client->request('POST',$url,[
@@ -182,7 +182,8 @@ class WeixinMaterialController extends Controller
 //        print_r($d);die;
         $data=[
             'media_id'=>$d['media_id'],
-            'url'=>$d['url']
+            'url'=>$d['url'],
+            'new_file_name'=>$new_file_name
         ];
         $mid=WeixinMaterial::insertGetId($data);
 //        var_dump($mid);
