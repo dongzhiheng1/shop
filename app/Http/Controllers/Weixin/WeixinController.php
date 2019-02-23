@@ -328,7 +328,7 @@ class WeixinController extends Controller
             echo $resopnse_array['errmsg'];
         }
     }
-
+//微信群发
     public function sendAll()
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $this->getWXAccessToken();

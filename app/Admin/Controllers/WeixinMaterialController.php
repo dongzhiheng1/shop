@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Model\WeixinMaterial;
+use App\Model\WeixinUser;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -191,4 +192,47 @@ class WeixinMaterialController extends Controller
             echo "上传失败";
         }
     }
+    //微信群发
+    public function sendAll(Request $request)
+    {
+
+        $name=$request->all();
+        $content= $name['name'];
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $this->getWXAccessToken();
+        //echo $url;exit;
+        //openid
+        $wxUserInfo = WeixinUser::get()->toArray();
+        //var_dump($wxUserInfo);
+        foreach ($wxUserInfo as $v) {
+            $openid[] = $v['openid'];
+        }
+        //print_r($openid);
+        //文本群发消息
+        $data = [
+            "touser" => $openid,
+            "msgtype" => "text",
+            "text" => [
+                "content" => $content
+            ]
+        ];
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($data, JSON_UNESCAPED_UNICODE)
+        ]);
+        $respone_arr = json_decode($r->getBody(), true);
+        if($respone_arr['errcode']==0){
+            echo "群发成功";
+        }
+    }
+    public function sendShow(Content $content)
+    {
+        $f = new \Encore\Admin\Widgets\Form();
+        $f->action('admin/sendAll');
+        $f->textarea('name', '群发');
+        return $content
+            ->header('Create')
+            ->description('description')
+            ->body($f);
+    }
+
 }

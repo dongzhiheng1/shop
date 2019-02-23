@@ -17,5 +17,7 @@ Route::group([
     //永久素材上传
     $router->resource('/wx/wxmaterial',WeixinMaterialController::class);
     $router->post('/wx/wxmaterial','WeixinMaterialController@formTest');
+    $router->get('/wxsend','WeixinMaterialController@sendShow');
+    $router->post('admin/sendAll','WeixinMaterialController@sendAll');
 });
 
