@@ -59,7 +59,7 @@ class WeixinController extends Controller
                 $data=[
                     'msg'=>$xml->Content,
                     'msgid'=>$xml->MsgId,
-                    'openid'=>openid,
+                    'openid'=>$openid,
                     'msg_type'=>1,
                     'add_time'=>time()
                 ];
@@ -410,26 +410,28 @@ class WeixinController extends Controller
     }
     public function chatShow(){
         $data=[
-            'openid'=>'o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
+            'openid'=>'o4Xdz5_z78eeXZaR89xdN6vb4Yek'
         ];
         return view('weixin.chat',$data);
     }
     public function getChatMsg()
     {
-        $openid = $_GET['openid'];
-        $pos = $_GET['pos'];
-        $msg = WeixinChatModel::where(['openid' => $openid])->where('id','>',$pos)->first();
+        $openid = $_GET['openid'];  //用户openid
+        $pos = $_GET['pos'];        //上次聊天位置
+        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
         if($msg){
-               $response=[
-                   'errno'=>0,
-                   'data'=>$msg->toArray()
-               ];
+            $response = [
+                'errno' => 0,
+                'data'  => $msg->toArray()
+            ];
         }else{
-            $response=[
-                'errno'=>50001,
-                'msg'=>'服务器异常'
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
             ];
         }
-        die(json_encode($response));
+        die( json_encode($response));
+
     }
 }
