@@ -45,7 +45,7 @@ $('#send_msg_btn').click(function (e) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url:     '/weixin/kefuchat',
+        url:     '/weixin/weixinChat',
         type:    'post',
         data:    {openid:openid,msg:send_msg},
         dataType: 'json',
