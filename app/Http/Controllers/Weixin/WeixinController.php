@@ -417,9 +417,12 @@ class WeixinController extends Controller
     public function getChatMsg()
     {
         $openid = $_GET['openid'];  //用户openid
-        $pos = $_GET['pos'];        //上次聊天位置
+//        var_dump($openid);die;
+        $pos = $_GET['pos'];
+//        var_dump($pos);die;
+        //上次聊天位置
         $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
-        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
+//        print_r($msg);die;
         if($msg){
             $response = [
                 'errno' => 0,
