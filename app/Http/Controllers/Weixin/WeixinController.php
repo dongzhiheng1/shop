@@ -65,7 +65,7 @@ class WeixinController extends Controller
                     'add_time'=>time()
                 ];
                 $id = WeixinChatModel::insertGetId($data);
-                var_dump($id);
+//                var_dump($id);
             } elseif ($xml->MsgType == 'image') {  //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if (1) {
