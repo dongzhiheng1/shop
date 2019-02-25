@@ -148,4 +148,5 @@ Route::get('/weixin/one','Weixin\WeixinController@one');
 
 //微信聊天
 Route::get('/weixin/chat','Weixin\WeixinController@chatShow');
-Route::post('/weixin/get_msg','Weixin\WeixinController@getChatMsg');
+Route::get('/weixin/get_msg','Weixin\WeixinController@getChatMsg');
+Route::post('/weixin/get_msg','Weixin\WeixinController@ weixinChat');

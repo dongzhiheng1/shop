@@ -409,7 +409,7 @@ class WeixinController extends Controller
     }
     public function chatShow(){
         $data=[
-            'openid'=>'o4Xdz5_z78eeXZaR89xdN6vb4Yek'
+            'openid'=>'	o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
         ];
         return view('weixin.chat',$data);
     }
@@ -433,6 +433,36 @@ class WeixinController extends Controller
             ];
         }
         die( json_encode($response));
-
+    }
+    public  function  weixinChat(Request $request){
+        $openid=$request->input("openid");
+        $msg=$request->input("send_msg");
+        $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
+        $data = [
+            'touser'       =>$openid,
+            'msgtype'      =>'text',
+            'text'         =>[
+                'content'  =>$msg,
+            ]
+        ];
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST', $url, [
+            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+        ]);
+        $body = $response->getBody();
+        $arr = json_decode($body,true);
+        //加入数据库
+        if($arr['errcode']==0){
+            $info = [
+                'msg_type'      =>  2,
+                'msg'   =>  $msg,
+                'msgid'     =>  0,
+                'add_time'  =>  time(),
+                'openid'   =>  $openid,
+            ];
+            $id= WeixinChatModel::insertGetId($info);
+            var_dump($id);die;
+        }
+        return $arr;
     }
 }
