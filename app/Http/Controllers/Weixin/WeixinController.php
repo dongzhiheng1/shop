@@ -56,13 +56,14 @@ class WeixinController extends Controller
         if (isset($xml->MsgType)) {
             if ($xml->MsgType == 'text') {
                 $msg = $xml->Content;
-                $data=[
-                    'msg'=>$xml->Content,
-                    'msgid'=>$xml->MsgId,
-                    'openid'=>$openid,
-                    'msg_type'=>1,
+                //记录聊天消息
+                $data = [
+                    'msg'       => $msg,
+                    'msgid'     => $xml->MsgId,
+                    'openid'    => $openid,
+                    'msg_type'  => 1        // 1用户发送消息 2客服发送消息
                 ];
-                $id=WeixinChatModel::insertGetId($data);
+                $id = WeixinChatModel::insertGetId($data);
                 var_dump($id);
             } elseif ($xml->MsgType == 'image') {  //用户发送图片信息
                 //视业务需求是否需要下载保存图片
@@ -407,25 +408,29 @@ class WeixinController extends Controller
     public function one(){
         return  view('test.one');
     }
-    public function chatShow(){
-        $data=[
-            'openid'=>'	o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
+    /**
+     * 微信客服聊天
+     */
+    public function chatShow()
+    {
+        $data = [
+            'openid'    => 'o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
         ];
         return view('weixin.chat',$data);
     }
+
     public function getChatMsg()
     {
         $openid = $_GET['openid'];  //用户openid
-//        var_dump($openid);die;
-        $pos = $_GET['pos'];
-//        var_dump($pos);die;
-        //上次聊天位置
+        $pos = $_GET['pos'];        //上次聊天位置
         $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
         if($msg){
             $response = [
                 'errno' => 0,
                 'data'  => $msg->toArray()
             ];
+
         }else{
             $response = [
                 'errno' => 50001,
@@ -436,7 +441,8 @@ class WeixinController extends Controller
     }
     public  function  weixinChat(Request $request){
         $openid=$request->input("openid");
-        $msg=$request->input("send_msg");
+        $msg=$request->input("msg");
+//        var_dump($msg);die;
         $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
         $data = [
             'touser'       =>$openid,

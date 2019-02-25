@@ -11,7 +11,7 @@ setInterval(function(){
         success :   function(d){
             if(d.errno==0){     //服务器响应正常
                 //数据填充
-                var msg_str = '<blockquote>' + d.add_time +
+                var msg_str = '<blockquote>' + d.created_at +
                     '<p>' + d.data.msg + '</p>' +
                     '</blockquote>';
 
@@ -31,16 +31,6 @@ $("#send_msg_btn").click(function(e){
     var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
     $("#chat_div").append(msg_str);
     $("#send_msg").val("");
-});
-// 客服发送消息 end
-//客服发送消息
-$('#send_msg_btn').click(function (e) {
-    e.preventDefault();
-    var send_msg = $('#send_msg').val().trim();
-    //console.log(send_msg);
-    //console.log(message);
-    //$("#chat_div").append(msg_str);
-    $('#send_msg').val('');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,5 +47,5 @@ $('#send_msg_btn').click(function (e) {
             }
         }
     });
-    //$('#chatArea').append(_p);
-})
+});
+// 客服发送消息 end
