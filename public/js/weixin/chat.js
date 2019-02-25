@@ -11,7 +11,7 @@ setInterval(function(){
         success :   function(d){
             if(d.errno==0){     //服务器响应正常
                 //数据填充
-                var msg_str = '<blockquote>' + d.data.openid +
+                var msg_str = '<blockquote>' + d.add_time +
                     '<p>' + d.data.msg + '</p>' +
                     '</blockquote>';
 
