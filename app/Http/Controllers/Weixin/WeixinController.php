@@ -61,7 +61,6 @@ class WeixinController extends Controller
                     'msgid'=>$xml->MsgId,
                     'openid'=>$openid,
                     'msg_type'=>1,
-                    'add_time'=>time()
                 ];
                 $id=WeixinChatModel::insertGetId($data);
                 var_dump($id);
@@ -410,7 +409,7 @@ class WeixinController extends Controller
     }
     public function chatShow(){
         $data=[
-            'openid'=>'o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
+            'openid'=>'o4Xdz5_z78eeXZaR89xdN6vb4Yek'
         ];
         return view('weixin.chat',$data);
     }
@@ -421,12 +420,11 @@ class WeixinController extends Controller
         $pos = $_GET['pos'];
 //        var_dump($pos);die;
         //上次聊天位置
-        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
-//        print_r($msg);die;
+        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first()->toArray();
         if($msg){
             $response = [
                 'errno' => 0,
-                'data'  => $msg->toArray()
+                'data'  => $msg
             ];
         }else{
             $response = [
