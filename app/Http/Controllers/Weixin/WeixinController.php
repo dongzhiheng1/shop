@@ -61,7 +61,8 @@ class WeixinController extends Controller
                     'msg'       => $msg,
                     'msgid'     => $xml->MsgId,
                     'openid'    => $openid,
-                    'msg_type'  => 1        // 1用户发送消息 2客服发送消息
+                    'msg_type'  => 1 , // 1用户发送消息 2客服发送消息
+                    'add_time'=>time()
                 ];
                 $id = WeixinChatModel::insertGetId($data);
                 var_dump($id);

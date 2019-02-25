@@ -11,8 +11,8 @@ setInterval(function(){
         success :   function(d){
             if(d.errno==0){     //服务器响应正常
                 //数据填充
-                var msg_str = '<blockquote>' + d.created_at +
-                    '<p>' + d.data.msg + '</p>' +
+                var msg_str = '<blockquote>'+d.add_time+
+                    '<p>'+d.data.msg +'</p>'+
                     '</blockquote>';
 
                 $("#chat_div").append(msg_str);
@@ -38,7 +38,7 @@ $("#send_msg_btn").click(function(e){
         url:     '/weixin/weixinChat',
         type:    'post',
         data:    {openid:openid,msg:send_msg},
-        dataType: 'json',
+        dataType:'json',
         success:   function (a) {
             if(a.errcode == 0){
                 alert('发送成功');
