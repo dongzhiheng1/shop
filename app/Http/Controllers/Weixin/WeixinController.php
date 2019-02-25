@@ -463,11 +463,10 @@ class WeixinController extends Controller
                 'msg_type'      =>  2,
                 'msg'   =>  $msg,
                 'msgid'     =>  0,
-                'add_time'  =>  time(),
                 'openid'   =>  $openid,
             ];
             $id= WeixinChatModel::insertGetId($info);
-            var_dump($id);die;
+//            var_dump($id);die;
         }
         return $arr;
     }
