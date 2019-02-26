@@ -150,3 +150,7 @@ Route::get('/weixin/one','Weixin\WeixinController@one');
 Route::get('/weixin/chat','Weixin\WeixinController@chatShow');
 Route::get('/weixin/get_msg','Weixin\WeixinController@getChatMsg');
 Route::post('/weixin/weixinChat','Weixin\WeixinController@weixinChat');
+
+//微信支付
+Route::get('/weixin/pay/test','Weixin\PayController@test');
+Route::post('/weixin/pay/notice','Weixin\PayController@notice');

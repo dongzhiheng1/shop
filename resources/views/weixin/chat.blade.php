@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>开聊... openid:{{$openid}}</h2>
+        <h2>聊天室{{$openid}}</h2>
         <div class="chat" id="chat_div">
         </div>
         <hr>

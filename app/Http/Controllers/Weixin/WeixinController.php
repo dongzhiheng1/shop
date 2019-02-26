@@ -414,8 +414,10 @@ class WeixinController extends Controller
     public function chatShow()
     {
         $data = [
-            'openid'    => 'o4Xdz5yQK0PvAw9dluMXrqkWOyrc'
+            'openid'    => 'o4Xdz5wnr4PR2dQs8BvzT0IV5vIw'
         ];
+//        $where=['openid'=>$data];
+//        $info=WeixinUser::where($where)->first();
         return view('weixin.chat',$data);
     }
 
