@@ -9,7 +9,7 @@ use App\Http\Controllers\Weixin\WXBizDataCryptController;
 
 class PayController extends Controller
 {
-     public $weixin_unfiedorder_url='https://api.mch.weixin.qq.com/pay/unifiedorder';
+    public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
     //通知回调
      public $weixin_notify_url='https://dzh.wangby.cn/weixin/pay/notice';
      public function test(){
