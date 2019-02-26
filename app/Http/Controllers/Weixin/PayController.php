@@ -32,8 +32,8 @@ class PayController extends Controller
          $this->values=$orderInfo;
          $this->SetSign();
          $xml=$this->ToXml();
-         $rs=$this->$this->postXmlCurl($xml,$this->weixin_unfiedorder_url,$useCert=false,$second=30);
-         $data=simplexml_load_strig($rs);
+         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
+         $data =simplexml_load_string($rs);
          echo 'code_url: '.$data->code_url;echo '<br>';
      }
     public function ToXml(){
