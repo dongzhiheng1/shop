@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Weixin;
 use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Weixin\WXBizDataCryptController;
 
 class PayController extends Controller
 {
