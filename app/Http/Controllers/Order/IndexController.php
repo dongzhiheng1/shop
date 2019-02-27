@@ -67,4 +67,5 @@ class IndexController extends Controller
         ];
         return view('order.index',$data);
     }
+
 }

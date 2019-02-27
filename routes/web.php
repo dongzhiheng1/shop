@@ -152,5 +152,5 @@ Route::get('/weixin/get_msg','Weixin\WeixinController@getChatMsg');
 Route::post('/weixin/weixinChat','Weixin\WeixinController@weixinChat');
 
 //微信支付
-Route::get('/weixin/pay/test','Weixin\PayController@test');
+Route::get('/weixin/pay/test/{order_id}','Weixin\PayController@test');
 Route::post('/weixin/pay/notice','Weixin\PayController@notice');
