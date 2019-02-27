@@ -141,6 +141,22 @@ class PayController extends Controller
             $sign=true;
             if($sign){
                 //签名验证成功
+                $where=[
+                    'plat_oid'=>$xml->out_trade_no
+                ];
+                $data=[
+                    'pay_time'=>time(),
+                    'pay_amount'=>$xml->total_fee,
+                    'is_pay'=>1,
+                    'plat'=>2,
+                ];
+                $res=OrderModel::where($where)->update($data);
+                if($res){
+                    echo "支付成功";
+                }else{
+                    echo "支付失败";
+                }
+
                 //TODO 逻辑处理 订单状态更新
             }else{
                 //TODO 验签失败
@@ -150,6 +166,26 @@ class PayController extends Controller
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo response;
+    }
+    public function WxSuccess(Request $request)
+    {
+        $order_id = $request->input('order_id');
+        $where = [
+            'order_id'  =>  $order_id,
+        ];
+        $order_info = OrderModel::where($where)->first();
+        if($order_info['is_pay']==1){
+            $response = [
+                'error' => 0,
+                'msg'   => '支付成功',
+            ];
+        }else{
+            $response = [
+                'error' => 1,
+                'msg'   => '未支付',
+            ];
+        }
+        return $response;
     }
 
 }

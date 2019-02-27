@@ -23,4 +23,20 @@
     // 使用 API
     qrcode.clear();
     qrcode.makeCode("{{$url}}");
+    setInterval(function () {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:     '/weixin/pay/wxsuccess?order_id='+"{{$order_id}}",
+            type:    'get',
+            dataType: 'json',
+            success:   function (d) {
+                if(d.error == 0){
+                    alert(d.msg);
+                    location.href = '/order/list'
+                }
+            }
+        });
+    },5000)
 </script>
