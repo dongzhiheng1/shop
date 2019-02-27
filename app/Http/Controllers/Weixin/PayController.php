@@ -14,11 +14,10 @@ class PayController extends Controller
      public $weixin_notify_url='https://dzh.wangby.cn/weixin/pay/notice';
     public function test($order_id)
     {
-        //
         $total_fee = 1;         //用户要支付的总金额
-      $where=[
+        $where=[
           'order_id'=>$order_id
-      ];
+       ];
         $orderInfo=OrderModel::where($where)->first();
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -132,13 +131,13 @@ class PayController extends Controller
     public function notice(){
         $data=file_get_contents("php://input");
         //记录日志
-        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<";
-        file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
+//        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<";
+//        file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
         $xml=simplexml_load_string($data);
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){
             //微信支付回调
             //验证签名
-            $sign=$this->wxSign($xml);
+            $sign=$this->wxSign($data);
             if($sign==$xml->sign){
                 //签名验证成功
                 $where=[
@@ -190,7 +189,7 @@ class PayController extends Controller
     }
     public function wxSign($xml){
         $data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
-        $this->values = [];
+        $this->values =[];
         $this->values =$data;
         $sign=$this->SetSign();
         return $sign;
