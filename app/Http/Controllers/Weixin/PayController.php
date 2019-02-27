@@ -147,6 +147,7 @@ class PayController extends Controller
                 $data=[
                     'pay_time'=>time(),
                     'pay_amount'=>$xml->total_fee,
+                    'plat_oid'=>$xml->out_trade_no
                     'is_pay'=>1,
                     'plat'=>2,
                 ];
