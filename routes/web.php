@@ -154,4 +154,4 @@ Route::post('/weixin/weixinChat','Weixin\WeixinController@weixinChat');
 //微信支付
 Route::get('/weixin/pay/test/{order_id}','Weixin\PayController@test');
 Route::post('/weixin/pay/notice','Weixin\PayController@notice');
-Route::post('/weixin/pay/wxsuccess','Weixin\PayController@WxSuccess');
+Route::get('/weixin/pay/wxsuccess','Weixin\PayController@WxSuccess');
