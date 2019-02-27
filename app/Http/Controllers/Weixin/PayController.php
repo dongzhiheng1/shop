@@ -41,7 +41,7 @@ class PayController extends Controller
         $data =  simplexml_load_string($rs);
         $info=[
             'url'=>$data->code_url,
-            'order_number'=>$orderInfo['order_number']
+           'order_id'=>$order_id
         ];
 //       echo 'code_url: '.$data->code_url;echo '<br>';die;
         return view('weixin.wxpay',$info);
