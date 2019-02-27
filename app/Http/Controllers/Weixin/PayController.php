@@ -142,7 +142,7 @@ class PayController extends Controller
             if($sign){
                 //签名验证成功
                 $where=[
-                    'plat_oid'=>$xml->out_trade_no
+                    'order_number'=>$xml->out_trade_no
                 ];
                 $data=[
                     'pay_time'=>time(),
