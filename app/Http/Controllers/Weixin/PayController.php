@@ -138,8 +138,8 @@ class PayController extends Controller
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){
             //微信支付回调
             //验证签名
-            $sign=true;
-            if($sign){
+            $sign=$this->wxSign($xml);
+            if($sign==$xml->sign){
                 //签名验证成功
                 $where=[
                     'order_number'=>$xml->out_trade_no
@@ -187,6 +187,13 @@ class PayController extends Controller
             ];
         }
         return $response;
+    }
+    public function wxSign($xml){
+        $data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        $this->values = [];
+        $this->values =$data;
+        $sign=$this->SetSign();
+        return $sign;
     }
 
 }
