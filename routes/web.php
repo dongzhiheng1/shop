@@ -158,7 +158,6 @@ Route::get('/weixin/pay/wxsuccess','Weixin\PayController@WxSuccess');
 
 
 //微信的登录
-Route::get('/weixin/login','Test\TestController@weixinLogin');
-Route::get('/wx/login','Test\TestController@wxLogin');
+Route::get('/weixin/login','Weixin\WeixinController@wxlogin');
 Route::get('/weixin/getcode','Weixin\WeixinController@getCode');
 
