@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Weixin;
 
 use App\Model\WeixinChatModel;
 use App\Model\WeixinUser;
+use App\Model\UserModel;
 use App\Model\WeixinMedia;
 use foo\bar;
 use Illuminate\Http\Request;
@@ -492,9 +493,9 @@ class WeixinController extends Controller
             //查询数据库中是否存在该账号
             $unionid = $user_arr['unionid'];
             $where = [
-                'union_id'   =>  $unionid
+                'unionid'   =>  $unionid
             ];
-            $wx_user_info = WxUserModel::where($where)->first();
+            $wx_user_info = WeixinUser::where($where)->first();
             if($wx_user_info){
                 $user_info = UserModel::where(['wechat_id'=>$wx_user_info->id])->first();
             }
