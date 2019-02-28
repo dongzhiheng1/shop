@@ -518,7 +518,7 @@ class WeixinController extends Controller
                     $request->session()->put('u_token',$token);
                     $request->session()->put('uid',$rs);
                     echo '注册成功';
-                    header("refresh:2,url='/user/center'");
+                    header("refresh:2,url='/goodslist'");
                 }else{
                     echo '注册失败';
                 }
