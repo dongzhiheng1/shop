@@ -472,4 +472,7 @@ class WeixinController extends Controller
         }
         return $arr;
     }
+    public function getCode(){
+        return view('weixin/wxlogin');
+    }
 }

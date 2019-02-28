@@ -155,3 +155,10 @@ Route::post('/weixin/weixinChat','Weixin\WeixinController@weixinChat');
 Route::get('/weixin/pay/test/{order_id}','Weixin\PayController@test');
 Route::post('/weixin/pay/notice','Weixin\PayController@notice');
 Route::get('/weixin/pay/wxsuccess','Weixin\PayController@WxSuccess');
+
+
+//微信的登录
+Route::get('/weixin/login','Test\TestController@weixinLogin');
+Route::get('/wx/login','Test\TestController@wxLogin');
+Route::get('/weixin/getcode','Weixin\WeixinController@getCode');
+
