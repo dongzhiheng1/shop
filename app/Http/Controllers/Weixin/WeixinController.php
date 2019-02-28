@@ -529,7 +529,7 @@ class WeixinController extends Controller
             setcookie('token',$token,time()+86400,'/user','',false,true);
             $request->session()->put('u_token',$token);
             $request->session()->put('uid',$user_info->uid);
-            header("refresh:2,url='/user/center'");
+            header("refresh:2,url='/goodslist'");
     }
     public function wxlogin(){
         return view('weixin/wxlogin');
