@@ -539,7 +539,7 @@ class WeixinController extends Controller
 
     //计算签名
      function jdkSign($param){
-         $current_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+         $current_url='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
          $ticket=$this->getTicket();
          $str='jsapi_ticket='.$ticket.'&noncestr='.$param['noncestr'].'&timestamp='.$param['timestamp'].'&url='.$current_url;
          $signature=sha1($str);
