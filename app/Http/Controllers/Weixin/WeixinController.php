@@ -18,7 +18,8 @@ class WeixinController extends Controller
 {
     //
 
-    protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
+    protected $redis_weixin_access_token = 'str:weixin_access_token';//微信 access_token
+    protected $redis_weixin_jsapi_ticket = 'str:weixin_jsapi_ticket';//微信jsapi的ticket
 
     public function test()
     {
@@ -532,9 +533,53 @@ class WeixinController extends Controller
             echo "登录成功";
             header("refresh:2,url='/goodslist'");
     }
-    public function wxlogin(){
-        return view('weixin/wxlogin');
+    public function wxLogin(){
+        return view('weixin/wxLogin');
     }
 
-
+    //计算签名
+     function jdkSign($param){
+         $current_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+         $ticket=$this->getTicket();
+         $str='jsapi_ticket='.$ticket.'&noncestr='.$param['noncestr'].'&timestamp='.$param['timestamp'].'&url='.$current_url;
+         $signature=sha1($str);
+         //var_dump($signature);
+         return $signature;
+    }
+    
+  //jssdk 调试
+    public function  jsSdk(){
+        $jsconfig=[
+            'appid'=>env('WEIXIN_APPID'),
+            'timestamp'=>time(),
+            'noncestr'=>str_random(10),
+        ];
+        $sign=$this->jdkSign($jsconfig);
+        $jsconfig['sign']=$sign;
+        $info=[
+            'jsconfig'=>$jsconfig
+        ];
+        return view('weixin.jssdk',$info);
+    }
+    ///获取jsapi ticket
+    public function getTicket(){
+        $tikect=Redis::get($this->redis_weixin_jsapi_ticket);
+        if(!$tikect){
+//            $access_token=$this->redis_weixin_access_token;
+            $access_token='19_U6JIoEHwRyt-j73n4oOY1YAVULBiznA3f9AedIT798VFLm6uApQ10a3A9_WHeTMMPzAICW-GhxsRu8Mhniqbr1GTbzEzqUObjYwPDauYTE4BlsDfUDlS6Vawh5zovsK9121KlA9YLCQmVZrfWFMfABADMT';
+            $token_url='https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$access_token.'&type=jsapi';
+            $token_json = file_get_contents($token_url);
+            $user_arr = json_decode($token_json,true);
+            if(isset($user_arr['ticket'])){
+                 $ticket=$user_arr['ticket'];
+                 Redis::set($this->redis_weixin_jsapi_ticket,$ticket);
+                 Redis::setTimeout($this->redis_weixin_jsapi_ticket,3600);
+            }
+        }
+        return $tikect;
+    }
+    public function token(){
+        $token=$this->getWXAccessToken();
+        var_dump($token);
+    }
 }
