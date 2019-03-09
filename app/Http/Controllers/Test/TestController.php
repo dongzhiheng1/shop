@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\UserModel;
+use Illuminate\Support\Facades\Redis;
 use DB;
 
 class TestController extends Controller
@@ -110,4 +111,5 @@ class TestController extends Controller
 		var_dump($code);die;
 		return view('test.weixinlogin');
 	}
+
 }

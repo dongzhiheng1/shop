@@ -181,6 +181,7 @@ class WeixinController extends Controller
         echo $xml_response;
     }
 
+
     /**
      * 获取微信AccessToken
      */
@@ -199,7 +200,6 @@ class WeixinController extends Controller
             Redis::setTimeout($this->redis_weixin_access_token, 3600);
         }
         return $token;
-
     }
 
     /**

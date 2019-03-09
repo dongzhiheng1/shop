@@ -164,3 +164,7 @@ Route::get('/weixin/getcode','Weixin\WeixinController@getCode');
 Route::get('/weixin/jssdk','Weixin\WeixinController@jsSdk');
 Route::get('/weixin/token','Weixin\WeixinController@token');
 
+//微信菜单
+Route::get('/weixin/menu','Menu\MenuController@menuAll');
+Route::get('/weixin/token','Menu\MenuController@getAccessToken');
+Route::post('/weixin/smenu','Menu\MenuController@wxMenu');
