@@ -168,3 +168,12 @@ Route::get('/weixin/token','Weixin\WeixinController@token');
 Route::get('/weixin/menu','Menu\MenuController@menuAll');
 Route::get('/weixin/token','Menu\MenuController@getAccessToken');
 Route::post('/weixin/smenu','Menu\MenuController@wxMenu');
+
+//api
+Route::get('/api','Test\TestController@api');
+Route::post('/encrypt','Test\TestController@encrypt');
+
+Route::post('/sign','Test\TestController@sign');
+
+
+Route::post('/pub','Test\TestController@pub');

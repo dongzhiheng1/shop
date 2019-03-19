@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Model\UserModel;
 use Illuminate\Support\Facades\Redis;
 use DB;
+use GuzzleHttp\Client;
 
 class TestController extends Controller
 {
     //
-
+	public  $PrivateKey="./key/priv2.key";
+	public  $PublicKey="./key/pub.key";
     public function abc()
     {
         var_dump($_POST);echo '</br>';
@@ -111,5 +113,74 @@ class TestController extends Controller
 		var_dump($code);die;
 		return view('test.weixinlogin');
 	}
+
+	public function api(){
+		$url='http://www.api.com/test.php?type=1';
+		$client=new Client();
+		$response=$client->request('GET',$url);
+		$r=$response->getBody();
+		$data=json_decode($r,true);
+		print_r($data);
+	}
+	public function encrypt(){
+		$data=$_POST['data'];
+		$time=$_GET['time'];
+		$key='password';
+		$method='AES-128-CBC';
+		$salt='123456';
+		$iv=substr(md5($time.$salt),5,16);
+        $str_data=base64_decode($data);
+		$enc_data=openssl_decrypt($str_data,$method,$key,OPENSSL_RAW_DATA,$iv);
+		$json_str=json_decode($enc_data,true);
+//		var_dump($json_str) ;die;
+		if($json_str!=null){
+			$now_time=time();
+			$msg_data=[
+				'errno'=>0,
+				'msg'=>'ok'
+			];
+			$iv2=substr(md5($now_time.$salt),5,16);
+			$dec_data=openssl_encrypt(json_encode($msg_data),$method,$key,OPENSSL_RAW_DATA,$iv2);
+			$base_data=base64_encode($dec_data);
+			$n_time=[
+			   'now_time'=>$now_time,
+				'data'=>$base_data
+			];
+			echo json_encode($n_time);
+		}
+
+	}
+
+	//签名
+	public function sign(){
+		 $data=[
+			'name'=>'zhangsan',
+			 'sex'=>'男'
+		  ];
+		    $dat=json_encode($data);
+			$priKey = file_get_contents($this->PrivateKey);
+			$res = openssl_get_privatekey($priKey);
+//		    var_dump($priKey);die;
+			($res) or die('您使用的私钥格式错误，请检查RSA私钥配置');
+			openssl_sign($dat, $sign, $res, OPENSSL_ALGO_SHA256);
+			$sign = base64_encode($sign);
+		    $info=[
+				 'data'=>$data,
+				 'sign'=>$sign
+			 ];
+		echo json_encode($info);
+	}
+	public function pub()
+	{
+	    $sign=$_POST['sign'];
+		$data=$_POST['data'];
+		$publicKey = file_get_contents($this->PublicKey);
+		$res = openssl_get_publickey($publicKey);
+		($res) or die('RSA公钥错误。请检查公钥文件格式是否正确');
+		$result = (openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256) === 1);
+		openssl_free_key($res);
+		var_dump($result);
+	}
+
 
 }
