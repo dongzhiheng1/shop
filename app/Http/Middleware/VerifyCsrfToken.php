@@ -21,6 +21,7 @@ class VerifyCsrfToken extends Middleware
         '/weixin/pay/wxsuccess',
         '/encrypt',
         '/sign',
-        '/pub'
+        '/pub',
+        '/a'
     ];
 }

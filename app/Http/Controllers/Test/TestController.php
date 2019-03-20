@@ -181,6 +181,17 @@ class TestController extends Controller
 		openssl_free_key($res);
 		var_dump($result);
 	}
+	public function  fbnq(){
+         $arr[0] = 1;
+		 $arr[1] = 1;
+          for($i = 2;$i <=20;$i++){
+		   $arr[$i] = $arr[$i-1] + $arr[$i-2];
+		  }
+		 echo "<pre>";print_r($arr);echo "</pre>";
+	}
 
-
+	public function a(){
+//		echo 1;
+		echo "<pre>";print_r($_POST);echo "</pre>";
+	}
 }
