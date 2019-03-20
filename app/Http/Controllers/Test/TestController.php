@@ -190,8 +190,11 @@ class TestController extends Controller
 		 echo "<pre>";print_r($arr);echo "</pre>";
 	}
 
-	public function a(){
-//		echo 1;
-		echo "<pre>";print_r($_POST);echo "</pre>";
+	public function login(Request $request){
+//    echo 1;
+        $uname=$request->input('uname');
+		$pwd=$request->input('pwd');
+		echo $uname;
+		echo $pwd;
 	}
 }

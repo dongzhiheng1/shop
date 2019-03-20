@@ -179,3 +179,4 @@ Route::post('/sign','Test\TestController@sign');
 Route::post('/pub','Test\TestController@pub');
 Route::get('/fbnq','Test\TestController@fbnq');
 Route::post('/a','Test\TestController@a');
+Route::post('/test/login','Test\TestController@login');
