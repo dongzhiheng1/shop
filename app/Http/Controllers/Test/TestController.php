@@ -194,7 +194,12 @@ class TestController extends Controller
 //    echo 1;
         $uname=$request->input('uname');
 		$pwd=$request->input('pwd');
-		echo $uname;
-		echo $pwd;
+		//echo $uname;
+		//echo $pwd;
+		if(1){
+			return 1;
+		}else{
+			return 2;
+		}
 	}
 }
