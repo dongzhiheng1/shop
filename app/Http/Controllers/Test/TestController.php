@@ -224,10 +224,10 @@ class TestController extends Controller
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch,CURLOPT_POSTFIELDS,['data'=>$data]);
+		curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         curl_setopt($ch,CURLOPT_HEADER,0);
 		$rs=curl_exec($ch);
-		// echo $rs;
+		//  echo $rs;die;
 		$response=json_decode($rs,true);
 		return $response;
 	 }
