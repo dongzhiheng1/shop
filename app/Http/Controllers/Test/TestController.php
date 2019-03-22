@@ -216,7 +216,7 @@ class TestController extends Controller
         $uname=$request->input('uname');
 		$pwd=$request->input('pwd');
 		$data=[
-			'name'=>$uname,
+			'uname'=>$uname,
 			'pwd'=>$pwd
 		];
 		
