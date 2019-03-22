@@ -74,9 +74,9 @@
                         <a href="{{ route('register') }}">Register</a>
                         <a href="http://psp.wangby.cn/login?redirect={{$current_url}}">登录</a>
                         <a href="http://psp.wangby.cn/register?redirect={{$current_url}}">注册</a>
-                    @endauth
-                </div>
-            @endif
+                   @endif  
+            </div>
+           
 
             <div class="content">
                 <div class="title m-b-md">
