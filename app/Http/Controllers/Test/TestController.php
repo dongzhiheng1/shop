@@ -233,7 +233,7 @@ class TestController extends Controller
 		return $response;
 	 }
 	 public function index(Request $request){
-		 $current_url='http://'.$_SERVER['HTTP_POST'].$_SERVER['REQUEST_URL'];
+		 $current_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URL'];
 		 $data=[
 			 'login'=>$login,
 			 'current_url'=>urldecode($current_url)

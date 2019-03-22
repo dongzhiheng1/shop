@@ -18,10 +18,7 @@ class CheckCookie
     {
         if(isset($_COOKIE['uid']) && isset($_COOKIE['token'])){
              $key='str:u:token:web:'.$_COOKIE['uid'];
-             $token=Redis::hgetall($key);
-             foreach($token as $k=>$v){
-                 $token=$v;
-             }
+             $token=Redis::hget($key,'web');
              if($token==$_COOKIE['token']){
                  $request->attributes->add(['is_login'=>1]);
              }else{
