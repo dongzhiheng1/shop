@@ -68,7 +68,7 @@
         <div class="flex-center position-ref full-height">
             <div class="top-right links">
                     @if($login == 1)
-                        <a href="{{url('/home') }}">Home</a>
+                        <a href="http://psp.wangby.cn/quit">Home</a>
                     @else
                         <a href="http://psp.wangby.cn/login?redirect={{$current_url}}">Login</a>
                         <a href="http://psp.wangby.cn/register?redirect={{$current_url}}">Register</a>
