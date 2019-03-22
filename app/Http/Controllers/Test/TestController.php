@@ -212,7 +212,18 @@ class TestController extends Controller
 		return view('persion.persion');
 	}
 
-     public function user(){
-          var_dump($_POST);
+     public function user(Request $request){
+        $uname=$request->input('uname');
+		$pwd=$request->input('pwd');
+		$url='https://psp.wangby.cn/receive';
+        $ch=curl_init($url);
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_POST,1);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_POSTFIELDS,['data'=>$post_data]);
+        curl_setopt($ch,CURLOPT_HEADER,0);
+		$rs=curl_exec($ch);
+		echo $rs;die;
+        $response=json_decode($rs,true);
 	 }
 }
