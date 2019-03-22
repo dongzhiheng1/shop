@@ -232,4 +232,13 @@ class TestController extends Controller
 		$response=json_decode($rs,true);
 		return $response;
 	 }
+	 public function index(Request $request){
+		 $current_url='http://'.$_SERVER['HTTP_POST'].$_SERVER['REQUEST_URL'];
+		 $data=[
+			 'login'=>$login,
+			 'current_url'=>urldecode($current_url)
+		 ];
+		 return view('welcome',$data);
+	 }
+	
 }
