@@ -216,18 +216,19 @@ class TestController extends Controller
         $uname=$request->input('uname');
 		$pwd=$request->input('pwd');
 		$data=[
-			'uname'=>$uname,
+			'name'=>$uname,
 			'pwd'=>$pwd
 		];
-		$url='http://dzh.wangby.cn/receive';
-        $ch=curl_init($url);
-        curl_setopt($ch,CURLOPT_URL,$url);
+		
+		$url='http://psp.wangby.cn/receive';
+		$ch=curl_init();
+		// var_dump($ch);die;
+	    curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-        curl_setopt($ch,CURLOPT_HEADER,0);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_HEADER,0);
 		$rs=curl_exec($ch);
-		//  echo $rs;die;
 		$response=json_decode($rs,true);
 		return $response;
 	 }
