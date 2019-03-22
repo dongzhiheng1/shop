@@ -202,4 +202,17 @@ class TestController extends Controller
 			return 2;
 		}
 	}
+	public function persion(Request $request){
+		$is_login=$request->get('is_login');
+		// echo $is_login;die;
+		if($is_login==0){
+			echo "请先登录";
+			header('refresh:1;url=http://www.dongzhiheng.com');die;
+		};
+		return view('persion.persion');
+	}
+
+     public function user(){
+          var_dump($_POST);
+	 }
 }

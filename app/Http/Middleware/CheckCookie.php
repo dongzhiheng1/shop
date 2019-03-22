@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Redis;
 
 class CheckCookie
 {
@@ -15,7 +16,20 @@ class CheckCookie
      */
     public function handle($request, Closure $next)
     {
-        echo date('Y-m-d H:i:s');echo "<br>";
+        if(isset($_COOKIE['uid']) && isset($_COOKIE['token'])){
+             $key='str:u:token:web:'.$_COOKIE['uid'];
+             $token=Redis::get($key);
+             if($token==$_COOKIE['token']){
+                 $request->attributes->add(['is_login'=>1]);
+             }else{
+                  //未登录
+                $request->attributes->add(['is_login'=>0]);
+             }
+
+        }else{
+            //未登录
+            $request->attributes->add(['is_login'=>0]);
+        }
         return $next($request);
     }
 }

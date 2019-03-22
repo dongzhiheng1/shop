@@ -180,3 +180,8 @@ Route::post('/pub','Test\TestController@pub');
 Route::get('/fbnq','Test\TestController@fbnq');
 Route::post('/a','Test\TestController@a');
 Route::post('/test/login','Test\TestController@login');
+Route::get('/persion','Test\TestController@persion')->middleware('check.cookie');
+
+
+
+Route::post('/user','Test\TestController@user');

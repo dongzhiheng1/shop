@@ -74,15 +74,13 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
-                        <a href="http://passport.dongzhiheng.com/login">登录</a>
-                        <a href="http://passport.dongzhiheng.com/register">注册</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                laravel
+                <a href="#" style="text-decoration:none">个人中心</a>
                 </div>
 
                 <div class="links">
