@@ -185,7 +185,8 @@ Route::get('/persion','Test\TestController@persion')->middleware('check.cookie')
 
 
 Route::post('/user','Test\TestController@user');
-Route::post('/user','Test\TestController@user');
 
 
 Route::get('/','Test\TestController@index')->middleware('check.cookie');
+
+Route::post('/center','Test\TestController@center');

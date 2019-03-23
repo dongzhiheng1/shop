@@ -241,5 +241,28 @@ class TestController extends Controller
 		 ];
 		 return view('welcome',$data);
 	 }
+	public function center(Request $request){
+		$token=$_POST['token'];
+		$uid=$_POST['uid'];
+		if(empty($token)|| empty($uid)){
+			$response=[
+			    'errno'=>5001,
+				'msg'=>'请先登录'
+			];
+		}
+		$a_token=Redis::hget('android');
+		if($token==$a_token){
+			$response=[
+				'errno'=>0,
+				'msg'=>'ok'
+			];
+		}else{
+			$response=[
+					'errno'=>5002,
+					'msg'=>'非法登录'
+			];
+		}
+		return $response;
+	}
 	
 }
