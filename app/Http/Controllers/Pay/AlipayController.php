@@ -86,8 +86,6 @@ class AlipayController extends Controller
             'sign_type'   => 'RSA2',
             'timestamp'   => date('Y-m-d H:i:s'),
             'version'   => '1.0',
-            'notify_url'   => $this->notify_url,        //异步通知地址
-            'return_url'   => $this->return_url,        // 同步通知地址
             'biz_content'   => json_encode($bizcont),
         ];
 

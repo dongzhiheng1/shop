@@ -188,5 +188,13 @@ Route::post('/user','Test\TestController@user');
 
 
 Route::get('/','Test\TestController@index')->middleware('check.cookie');
-
+//个人中心
 Route::post('/center','Test\TestController@center');
+//支付宝支付
+Route::post('/test/alipay/{order_id}','Test\TestController@alipay');
+
+
+//测试商品展示
+Route::get('g/list','Test\TestController@goodslist');
+
+

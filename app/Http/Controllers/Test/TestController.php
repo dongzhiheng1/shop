@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\UserModel;
+use App\Model\GoodsModel;
 use Illuminate\Support\Facades\Redis;
 use DB;
 use GuzzleHttp\Client;
@@ -13,6 +14,15 @@ class TestController extends Controller
     //
 	public  $PrivateKey="./key/priv2.key";
 	public  $PublicKey="./key/pub.key";
+	public  $rsaPrivateKeyFilePath="./key/priv.key";
+	public  $aliPubKey='./key/ali_pub.key';
+	public  function  __construct()
+	{
+		$this->app_id=env('ALIPAY_APPID');
+		$this->gate_way=env('ALIPAY_GATEWAY');
+		$this->notify_url=env("ALIPAY_NOTIFY");
+		$this->return_url=env("ALIPAY_RETURN");
+	}
     public function abc()
     {
         var_dump($_POST);echo '</br>';
@@ -264,5 +274,34 @@ class TestController extends Controller
 		}
 		return $response;
 	}
-	
+	public function goodslist(){
+		$key='h:goodsinfo';
+		$goodsInfo=Redis::hGet('goodsInfo',$key);
+		if(empty($goodsInfo)){
+			$goodsInfo=GoodsModel::get();
+			Redis::hSet($key,'goodsInfo',$goodsInfo);
+			Redis::expire($key,86400);
+		}
+		return $goodsInfo;
+	}
+	public function goodsdetail($id){
+	    $where=[
+			'goods_id'=>$id
+		];
+		$key='set:goods_click:'.$id;
+		Redis::zadd($key,time(),time());
+		$goods_key='str:goods_detail:'.$id;
+		$data=Redis::get($goods_keys);
+		if(empty($data)){
+			$info=GoodsModel::where($where)->first();
+			Redis::set($goods_key,json_encode($info));
+			Redis::expire($goods_key,60*60*3);
+		
+		}else{
+			$info=json_decode($data,true);
+		}
+		$info['click']=Redis::zCard($key);
+		return $info;
+	}
+
 }
