@@ -44,9 +44,9 @@ class IndexController extends Controller
    //用户列表
       public function  userList(){
           $uid=cookie('uid');
-          $token=Redis::hget('str:u:token:'.$uid,'android');
+          $token=Redis::hget('str:u:token:'.$uid,'web');
           if(empty($token) || empty($uid)){
-             echo "登录已过期,请重新登录";
+             echo "登录已过期,请重新登录";die;
               header('refresh:1;url=/a/login');
           }
             $list=UserModel::get();
