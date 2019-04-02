@@ -31,6 +31,7 @@ class IndexController extends Controller
                     echo "登录成功";
                     Redis::del($redis_key_token);
                     Redis::hset($redis_key_token,'web',$token);
+                    Redis::expire( $redis_key_token,10);
                     header('refresh:1;url=/u/list');
                 }else{
                     echo("账号或密码错误");
