@@ -32,6 +32,13 @@ class IndexController extends Controller
                     Redis::hset($redis_key_token,'web',$token);
                     Redis::expire( $redis_key_token,10);
                     echo "登录成功";
+                    $where=[
+                        'u_id'=>$uid
+                    ];
+                    $data=[
+                        'is_login'=>1
+                    ];
+                    UserModel::where($where)->update($data);
                     header('refresh:1;url=/u/list');
                 }else{
                     echo("账号或密码错误");
@@ -47,11 +54,6 @@ class IndexController extends Controller
           $token=Redis::hget('str:u:token:'.$uid,'web');
           if(empty($token) || empty($uid)){
               echo "登录已过期,请重新登录";
-              header('refresh:1;url=/a/login');die;
-          }
-          $u_token=$_COOKIE['token'];
-          if($token!=$u_token){
-              echo "账号已下线";
               header('refresh:1;url=/a/login');die;
           }
           $list=UserModel::get();
@@ -139,5 +141,13 @@ class IndexController extends Controller
             ];
         }
         return $response;
+    }
+    public function yz(){
+        $uid=$_COOKIE['uid'];
+        $token=Redis::hget('str:u:token:'.$uid,'web');
+        if(empty($token) || empty($uid)){
+            echo "登录已过期,请重新登录";
+            header('refresh:1;url=/a/login');die;
+        }
     }
 }

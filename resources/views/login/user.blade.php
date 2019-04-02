@@ -15,7 +15,11 @@
                 <tr>
                     <td>{{$v['u_id']}}</td>
                     <td>{{$v['name']}}</td>
+                    @if($v['is_login']==1)
                     <td>在线</td>
+                        @else
+                        <td>离线</td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

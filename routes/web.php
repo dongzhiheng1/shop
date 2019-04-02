@@ -210,3 +210,6 @@ Route::get('/u/list','Login\IndexController@userList');
 //app登录
 Route::post('/app','Login\IndexController@receive');
 Route::post('/a/center','Login\IndexController@center');
+
+//定时查询
+Route::post('/yz','Login\IndexController@yz');
