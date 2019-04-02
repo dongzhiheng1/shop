@@ -23,9 +23,9 @@ class IndexController extends Controller
             if($res){
                 if(password_verify($u_pwd,$res->pwd)){
                     $token=substr(md5(time().mt_rand(1,9999)),10,10);
-                    setcookie('uid',$res->u_id,time()+86400,'/','wangby.cn',false,true);
+                    setcookie('uid',$res->u_id,time()+86400,'/','dongzhiheng.com',false,true);
                     setcookie('token',$token,time()+86400,'/user','',false,true);
-                    setcookie('uname',$u_name,time()+86400,'/','wangby.cn',false,true);
+                    setcookie('uname',$u_name,time()+86400,'/','dongzhiheng.com',false,true);
                     $uid=$res->u_id;
                     $redis_key_token='str:u:token:'.$uid;
                     Redis::del($redis_key_token);
@@ -43,8 +43,7 @@ class IndexController extends Controller
         }
    //用户列表
       public function  userList(){
-          $uid=cookie('uid');
-          echo $uid;die;
+          $uid=$_COOKIE['uid'];
           $token=Redis::hget('str:u:token:'.$uid,'web');
           if(empty($token) || empty($uid)){
               echo "登录已过期,请重新登录";die;
