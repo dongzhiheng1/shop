@@ -198,3 +198,15 @@ Route::post('/test/alipay/{order_id}','Test\TestController@alipay');
 Route::get('g/list','Test\TestController@goodslist');
 
 
+
+
+
+//pc登录
+Route::get('/a/login','Login\IndexController@Alogin');
+Route::post('/b/login','Login\IndexController@doAlogin');
+//用户列表
+Route::get('/u/list','Login\IndexController@userList');
+
+//app登录
+Route::post('/app','Login\IndexController@receive');
+Route::post('/a/center','Login\IndexController@center');

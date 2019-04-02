@@ -25,6 +25,8 @@ class VerifyCsrfToken extends Middleware
         '/a',
         '/test/*',
         '/user',
-        '/center'
+        '/center',
+        '/app',
+        '/a/center'
     ];
 }
