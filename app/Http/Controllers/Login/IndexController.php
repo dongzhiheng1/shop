@@ -127,10 +127,10 @@ class IndexController extends Controller
                 'msg'=>'非法登录'
             ];
         }
-        if(empty($a_token)){
+        if($token!=$a_token){
             return [
-                'errno'=>'50002',
-                'msg'=>'长时间未操作，请重新登录'
+                'errno'=>5003,
+                'msg'=>'账号已下线'
             ];
         }
         return $response;
