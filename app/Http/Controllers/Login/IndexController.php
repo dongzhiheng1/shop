@@ -47,7 +47,7 @@ class IndexController extends Controller
           $token=Redis::hget('str:u:token:'.$uid,'web');
           if(empty($token) || empty($uid)){
               echo "登录已过期,请重新登录";
-              header('refresh:1;url=/a/login');
+              header('refresh:1;url=/a/login');die;
           }
           $list=UserModel::get();
           $data=[
