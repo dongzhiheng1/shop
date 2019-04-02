@@ -49,6 +49,11 @@ class IndexController extends Controller
               echo "登录已过期,请重新登录";
               header('refresh:1;url=/a/login');die;
           }
+          $u_token=$_COOKIE['token'];
+          if($token!=$u_token){
+              echo "账号已下线";
+              header('refresh:1;url=/a/login');die;
+          }
           $list=UserModel::get();
           $data=[
               'list'=>$list
