@@ -84,12 +84,17 @@ class IndexController extends Controller
                     'user'=>$uname,
                     'uid'=>$res->u_id
                 ];
-            } else {
-                $response=[
+            }else {
+                return [
                     'error'=>500,
                     'msg'=>'登录失败'
                 ];
             }
+        }else{
+            return [
+                'error'=>500,
+                'msg'=>'账号或密码错误'
+            ];
         }
         return $response;
     }
@@ -114,12 +119,6 @@ class IndexController extends Controller
                 'errno'=>5002,
                 'msg'=>'非法登录'
             ];
-        }
-        if(empty($a_token)){
-           return [
-                'errno'=>2000,
-                'msg'=>'登录超时请重新登录'
-           ];
         }
         return $response;
     }

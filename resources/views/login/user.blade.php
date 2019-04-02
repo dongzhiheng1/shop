@@ -11,11 +11,11 @@
             </tr>
             </tbody>
             <tbody>
-            @foreach($data as $k=>$v)
+            @foreach($list as $k=>$v)
                 <tr>
-                    <td style="width:200px">{{$v['u_id']}}</td>
-                    <td style="width:200px">{{$v['name']}}</td>
-                    <td style="width:200px">在线</td>
+                    <td>{{$v['u_id']}}</td>
+                    <td>{{$v['name']}}</td>
+                    <td>在线</td>
                 </tr>
             @endforeach
             </tbody>
