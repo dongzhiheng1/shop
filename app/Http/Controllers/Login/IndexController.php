@@ -93,7 +93,7 @@ class IndexController extends Controller
                 ];
             }else {
                 return [
-                    'error'=>500,
+                    'error'=>5001,
                     'msg'=>'登录失败'
                 ];
             }
@@ -125,6 +125,12 @@ class IndexController extends Controller
             $response=[
                 'errno'=>5002,
                 'msg'=>'非法登录'
+            ];
+        }
+        if(empty($a_token)){
+            return [
+                'errno'=>'50002',
+                'msg'=>'长时间未操作，请重新登录'
             ];
         }
         return $response;
