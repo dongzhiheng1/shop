@@ -36,7 +36,8 @@ class IndexController extends Controller
                         'u_id'=>$uid
                     ];
                     $data=[
-                        'is_login'=>1
+                        'is_login'=>1,
+                        'tty'=>2
                     ];
                     UserModel::where($where)->update($data);
                     header('refresh:1;url=/u/list');
@@ -98,6 +99,10 @@ class IndexController extends Controller
                     'user'=>$uname,
                     'uid'=>$res->u_id
                 ];
+                $data=[
+                    'tty'=>1
+                ];
+                UserModel::where([ 'uid'=>$res->u_id])->update( $data);
             }else {
                 return [
                     'error'=>5001,
