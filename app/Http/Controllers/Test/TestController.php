@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\UserModel;
+use App\Model\TestModel;
 use App\Model\GoodsModel;
 use App\Model\UseModel;
 use Illuminate\Support\Facades\Redis;
@@ -430,6 +431,57 @@ class TestController extends Controller
 			echo "app_key为:".$appkey;echo "<br>";
 			echo "app_secret为:".$app_secret;
 		}
+	}
+	public function allLogin($tty){
+		  //$tty 1代表电脑端登录   2代表手机端  3代表微信  4代表html
+		   $where=[
+			  'name'=>'xushihao',
+			  'pwd'=>1
+		   ];
+		 $res=TestModel::where($where)->first();
+		 if($res){
+			echo '登录成功';
+			$where=[
+				'id'=>$res->id,
+			];
+			 $data=[
+				 'tty'=>$tty,
+				 'token'=>rand(1111,9999)
+			 ];
+			 TestModel::where($where)->update($data);
+		 }
+	}
+	public function moreLogin($tty){
+		//电脑和pc两端登录
+		$where=[
+				'name'=>'xushihao',
+				'pwd'=>1
+		];
+		$res=TestModel::where($where)->first();
+		if($res){
+			echo '登录成功';
+			$where=[
+					'id'=>$res->id,
+			];
+			$data=[
+					'tty'=>[1,2],
+					'token'=>rand(1111,9999)
+			];
+			TestModel::where($where)->update($data);
+		}
+	}
+
+
+	//test
+	public function aa(){
+		// 123563351234568861234
+		// 123456
+
+		// 12341543
+		// 1234
+
+
+		
 	}
 
 }

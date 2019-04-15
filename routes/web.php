@@ -234,7 +234,46 @@ Route::get('/check/{id}','Test\TestController@check');
 //接口加密解密
 Route::any('/api/login','Api\IndexController@api')->middleware('check.api');
 
+//多端测试
+Route::post('/all/login/{tty}','Test\TestController@allLogin');
+
+//文件上传
+Route::post('/api/upload','Api\IndexController@uploadImg')->middleware('check.api');
+
+//测试get方式
+Route::get('abc/','Api\IndexController@abc');
+
+/*前台验证
+************
+*/
+//传sid
+Route::post('/api/code','Api\IndexController@vCode')->middleware('check.api');
+
+
+//验证码展示
+Route::get('/vcode/{sid}/{r}','Api\IndexController@code');
+
+//接收传过来的数据
+Route::post('/getvcode','Api\IndexController@getVcode')->middleware('check.api');
+
+//登录验证
+Route::post('/getlogin','Api\IndexController@getLogin')->middleware('check.api');
+
+
+//注册验证
+Route::post('/getregister','Api\IndexController@getRegister')->middleware('check.api');
+
+//手机号发送信息
+Route::post('/gettelcode','Api\IndexController@getTelCode')->middleware('check.api');
+
+/**
+ *
+ * 后台接收数据
+ */
+Route::post('/getcodelist','Api\AdminController@codeList')->middleware('check.api');
 
 
 
+//接收搜索的手机号返回数据
 
+Route::post('/code/search','Api\AdminController@searchTelCode')->middleware('check.api');
